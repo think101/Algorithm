@@ -1,4 +1,4 @@
-package main.com.think101.leetcode;
+package main.com.think101.leetcode.TwoSum;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ public class TwoSum {
         int[] nums = {2, 7, 11, 15};
         int target = 9;
 
-        Solution solution = new Solution();
+        Solution solution = new main.com.think101.leetcode.TwoSum.Solution();
         System.out.println(Arrays.toString(solution.twoSum(nums, target)));
     }
 }
