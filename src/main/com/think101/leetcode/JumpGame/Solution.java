@@ -1,7 +1,12 @@
 package main.com.think101.leetcode.JumpGame;
 
 public class Solution {
-    public boolean canJump(int[] nums) {
+
+    /*
+     * calculate the furthest reachable index for each index
+     *
+     */
+    public boolean canJumpV1(int[] nums) {
         int[] furthestIndex = new int[nums.length];
         furthestIndex[0] = nums[0];
 
