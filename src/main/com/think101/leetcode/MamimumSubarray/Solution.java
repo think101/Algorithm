@@ -65,3 +65,10 @@ public class Solution {
         return sum;
     }
 }
+
+// hint 1: find the max sum of sub array within the array int[0..i] is the wrong way to go...
+
+// hint 2: if use the negative numbers to separate the array, and merge all contiguous position numbers
+// or negative numbers, need to consider special case that:
+// - all numbers positive
+// - all numbers negative
