@@ -10,6 +10,8 @@ public class Solution {
 
         int[] minusNums = new int[nums.length];
         int sum=0;
+
+        
         for(int i=0; i<nums.length; i++) {
             minusNums[i] = -1 * nums[i];
             sum += nums[i];

@@ -1,4 +1,4 @@
-package main.com.think101.leetcode.MamimumSubarray;
+package main.com.think101.leetcode.MaximumSubarray;
 
 public class Solution {
 
