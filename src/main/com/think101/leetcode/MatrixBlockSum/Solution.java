@@ -10,6 +10,8 @@ public class Solution {
         dp[0][0] = mat[0][0];
         for(int i=1; i<row; i++) {
             dp[i][0] = mat[i][0] + dp[i-1][0];
+
+
         }
         for(int i=1; i<col; i++) {
             dp[0][i] = mat[0][i] + dp[0][i-1];
