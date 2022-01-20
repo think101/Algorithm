@@ -9,7 +9,7 @@ public class Solution {
 
         for(int i=1; i<nums.length; i++) {
             int t = 1;
-            dp[i] = 1;
+            dp[i] = 1;  // need to initialize each i
             for(int j=0; j<i; j++) {
                 if(nums[i] > nums[j] && dp[j]+1 > t) {
                     t = dp[j]+1;
