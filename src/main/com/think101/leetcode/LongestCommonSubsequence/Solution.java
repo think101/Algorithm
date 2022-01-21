@@ -6,6 +6,8 @@ public class Solution {
         int row = text1.length();
         int col = text2.length();
 
+        // dp[i][j]: text1.substring(i) and text2.substring(j) LCS's length
+        // bottom up
         int[][] dp = new int[row+1][col+1];
         for(int i=0; i<row+1; i++)
             dp[i][col] = 0;
