@@ -2,6 +2,7 @@ package main.com.think101.leetcode.SymmetricTree;
 
 public class Solution {
 
+    // need improvement
     public boolean isSymmetric(TreeNode root) {
         TreeNode[] l = new TreeNode[2];
         l[0] = root.left;
