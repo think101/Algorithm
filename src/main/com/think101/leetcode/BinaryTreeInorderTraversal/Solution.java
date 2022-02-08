@@ -27,6 +27,6 @@ public class Solution {
           this.left = left;
           this.right = right;
       }
-  }
+    }
 
 }
