@@ -37,4 +37,26 @@ public class Solution {
 
         return dp[s.length()-1];
     }
+
+
+    public int numDecodings_TLE(String s) {
+        if(s.length()==0)
+            return 1;
+        else if(s.charAt(0) == '0')
+            return 0;
+        else if(s.length() == 1)
+            return 1;
+        else if(s.length() ==2) {
+            if(s.charAt(0)>'2' || (s.charAt(0)=='2' && s.charAt(1)>'6')
+                    || s.charAt(1)=='0') {
+                return 1;
+            }
+            else
+                return 2;
+        }
+
+        int i = Integer.parseInt(s.substring(0,2));
+        return numDecodings(s.substring(1)) +
+                ((i>=10 && i<=26)? numDecodings(s.substring(2)) : 0);
+    }
 }
