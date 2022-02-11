@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Solution {
 
-    private static final Map<String, List<String>> digitToLetter = new HashMap<>() {{
+    private static final Map<String, List<String>> digitToLetter = new HashMap<String, List<String>>() {{
         put("2", Arrays.asList("a", "b", "c"));
         put("3", Arrays.asList("d", "e", "f"));
         put("4", Arrays.asList("g", "h", "i"));
