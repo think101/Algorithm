@@ -12,33 +12,31 @@ public class Solution {
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        if(preorder.length == 0)
+        return buildTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+    }
+
+    public TreeNode buildTree(int[] preorder, int lp, int rp, int[] inorder, int li, int ri) {
+        if(lp > rp)
             return null;
-        if(preorder.length==1)
-            return new TreeNode(preorder[0]);
+        if(lp == rp)
+            return new TreeNode(preorder[lp]);
 
         int index = -1;
-        for(int i=0; i<inorder.length; i++)
-            if(inorder[i] == preorder[0])
+        for(int i=li; i<=ri; i++){
+            if(inorder[i] == preorder[lp]) {
                 index =i;
+                break;
+            }
+        }
+        int leftSize = index-li;
 
-        int[] preorderLeft = Arrays.copyOfRange(preorder, 1, 1+index);
-        int[] inorderLeft = Arrays.copyOfRange(inorder, 0, index);
-
-        int[] preorderRight = (1+index < preorder.length) ?
-                Arrays.copyOfRange(preorder, 1+preorderLeft.length, preorder.length) : new int[0];
-        int[] inorderRight = (1+index < inorder.length) ?
-                Arrays.copyOfRange(inorder, 1+index, inorder.length) : new int[0];
-
-        TreeNode result = new TreeNode(preorder[0]);
-        result.left = buildTree(preorderLeft, inorderLeft);
-        result.right = buildTree(preorderRight, inorderRight);
+        TreeNode result = new TreeNode(preorder[lp]);
+        result.left = buildTree(preorder, lp+1, lp+leftSize, inorder, li, index);
+        result.right = buildTree(preorder, lp+1+leftSize, rp, inorder, index+1, ri);
 
         return result;
 
     }
-
-
      public class TreeNode {
          int val;
          TreeNode left;
