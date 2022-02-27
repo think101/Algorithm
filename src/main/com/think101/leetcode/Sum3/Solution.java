@@ -34,4 +34,36 @@ public class Solution {
 
         return result;
     }
+
+    public List<List<Integer>> threeSum_2Pointers(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for(int i=0; i<nums.length; i++) {
+            if(i-1>=0 && nums[i] == nums[i-1])
+                continue;
+
+            int j=i+1, k= nums.length-1;
+
+            while(j<k) {
+                if(j-1 != i && nums[j] ==nums[j-1]) {
+                    j++;
+                    continue;
+                }
+
+                if(nums[j]+nums[k] > -nums[i]) k--;
+                else if(nums[j]+nums[k] < -nums[i]) j++;
+                else {
+                    List<Integer> l = Arrays.asList(nums[i], nums[j], nums[k]);
+                    result.add(l);
+
+                    j++;
+                    k--;
+                }
+            }
+        }
+
+
+        return result;
+    }
 }
