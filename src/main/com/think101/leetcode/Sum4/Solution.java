@@ -40,4 +40,40 @@ public class Solution {
         return result;
 
     }
+
+    public List<List<Integer>> fourSum_2Pointers(int[] nums, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for(int i=0; i<nums.length; i++) {
+            if(i-1 >=0 && nums[i] == nums[i-1])
+                continue;
+
+            for(int j=i+1; j<nums.length; j++) {
+                if(j-1 != i && nums[j-1] == nums[j])
+                    continue;
+
+                int k = j+1, l = nums.length-1;
+                while(k < l) {
+                    if(k-1 != j && nums[k-1] == nums[k]) {
+                        k++;
+                        continue;
+                    }
+
+                    if(nums[k]+nums[l] > target - nums[i] - nums[j]) l--;
+                    else if(nums[k]+nums[l] < target - nums[i] - nums[j]) k++;
+                    else {
+                        List<Integer> list = Arrays.asList(nums[i], nums[j], nums[k], nums[l]);
+                        result.add(list);
+
+                        k++;
+                        l--;
+                    }
+                }
+            }
+        }
+
+        return result;
+
+    }
 }
