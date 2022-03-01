@@ -5,8 +5,36 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Solution {
-
+    
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        int res = 0;
+
+        Map<Integer, Integer> numsCount = new HashMap<>();
+        for(int i : nums1) {
+            for(int j : nums2) {
+                if(!numsCount.containsKey(i+j))
+                    numsCount.put(i+j, 0);
+
+                numsCount.put(i+j, numsCount.get(i+j)+1);
+            }
+        }
+
+
+        for(int i : nums3) {
+            for(int j : nums4) {
+
+                int t = -i - j;
+
+                if(numsCount.containsKey(t))
+                    res += numsCount.get(t);
+
+            }
+        }
+
+        return res;
+    }
+
+    public int fourSumCount_V2(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
         int res = 0;
         int[][] allNums = new int[4][nums1.length];
         allNums[0] = nums1;
