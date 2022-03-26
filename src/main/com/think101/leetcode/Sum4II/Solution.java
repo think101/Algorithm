@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Solution {
-    
+
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
         int res = 0;
 
