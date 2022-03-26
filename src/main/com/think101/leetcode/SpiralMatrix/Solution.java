@@ -49,4 +49,63 @@ public class Solution {
 
         return res;
     }
+
+
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        // 1 2 3 4 left down right up
+        List<Integer> result = new ArrayList<>();
+
+        int d = 1;
+        int i = 0, j = 0;
+        int row = matrix.length, col = matrix[0].length;
+
+        while(true) {
+            if(result.size() == row*col)
+                break;
+
+            if(d == 1) {
+                while(j<col && matrix[i][j] != 111){
+                    result.add(matrix[i][j]);
+                    matrix[i][j] = 111;
+
+                    j++;
+                }
+                i++;
+                j--;
+            }
+            else if(d == 2) {
+                while(i<row && matrix[i][j] != 111){
+                    result.add(matrix[i][j]);
+                    matrix[i][j] = 111;
+                    i++;
+                }
+                i--;
+                j--;
+            }
+            else if(d == 3) {
+                while(j>=0 && matrix[i][j] != 111){
+                    result.add(matrix[i][j]);
+                    matrix[i][j] = 111;
+
+                    j--;
+                }
+                i--;
+                j++;
+            }
+            else {
+                while(i>=0 && matrix[i][j] != 111){
+                    result.add(matrix[i][j]);
+                    matrix[i][j] = 111;
+
+                    i--;
+                }
+                i++;
+                j++;
+            }
+
+            d = d+1 > 4 ? 1 : d+1;
+        }
+
+        return result;
+    }
 }
