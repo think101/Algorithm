@@ -12,7 +12,7 @@ public class Solution {
             if(s.charAt(i) == '-') {
                 // - char bind with the char(s) after it
                 if(stack.empty() || !Character.isDigit(stack.peek().charAt(0))) {
-                    int end = getNumber(s, i);
+                    int end = getNumber(s, i+1);
                     stack.push(s.substring(i, end+1));
                     i = end;
                 }
@@ -46,6 +46,12 @@ public class Solution {
     private void cleanStack(Stack<String> stack, int n) {
         while(!stack.empty() && (stack.peek().charAt(0) == '+' || stack.peek().charAt(0) == '-')) {
             String op = stack.pop();
+
+            if(stack.empty()) {
+                stack.push(op + n);
+                return;
+            }
+
             int prevNum = Integer.parseInt(stack.pop());
 
             if(op.equals("+")) {
@@ -71,6 +77,9 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.calculate("(1+(4+5+2)-3)+(6+8)"));
+        //System.out.println(s.calculate("(1+(4+5+2)-3)+(6+8)"));
+        //System.out.println(s.calculate("-2+ 1"));
+        //System.out.println(s.calculate("- (3 + (4 + 5))"));
+        System.out.println(s.calculate("1-(3+5-2+(3+19-(3-1-4+(9-4-(4-(1+(3)-2)-5)+8-(3-5)-1)-4)-5)-4+3-9)-4-(3+2-5)-10"));
     }
 }
