@@ -26,34 +26,39 @@ public class Solution {
             else if(s.charAt(i) == ')') {
                 String t = stack.pop();
                 stack.pop();    // pop '('
-                stack.push(t);
+
+                cleanStack(stack,  Integer.parseInt(t));
             }
             else {
                 // a number
                 int end = getNumber(s, i);
-                int n = Integer.valueOf(s.substring(i, end+1));
+                int n = Integer.parseInt(s.substring(i, end+1));
 
-                if(!stack.empty() && (stack.peek().charAt(0) == '+' || stack.peek().charAt(0) == '-')) {
-                    String op = stack.pop();
-                    int prevNum = Integer.valueOf(stack.pop());
-
-                    if(op.equals("+")) {
-                        stack.push(String.valueOf(prevNum + n));
-                    }
-                    else{
-                        stack.push(String.valueOf(prevNum - n));
-                    }
-                }
-                else {
-                    stack.push(String.valueOf(n));
-                }
+                cleanStack(stack, n);
 
                 i = end;
             }
         }
 
-        return Integer.valueOf(stack.pop());
+        return Integer.parseInt(stack.pop());
     }
+
+    private void cleanStack(Stack<String> stack, int n) {
+        while(!stack.empty() && (stack.peek().charAt(0) == '+' || stack.peek().charAt(0) == '-')) {
+            String op = stack.pop();
+            int prevNum = Integer.parseInt(stack.pop());
+
+            if(op.equals("+")) {
+                n = prevNum + n;
+            }
+            else{
+                n = prevNum - n;
+            }
+        }
+
+        stack.push(String.valueOf(n));
+    }
+
 
     private int getNumber(String s, int start) {
         int end = start;
