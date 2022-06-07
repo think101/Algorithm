@@ -3,8 +3,22 @@ package main.com.think101.leetcode.Grind75.DailyTemperatures;
 import java.util.Arrays;
 
 public class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        int[] res = new int[T.length];
+        int[] stack = new int[T.length];
+        int top = -1;
+        for (int i = 0; i < T.length; i++) {
+            while (top >= 0 && T[i] > T[stack[top]]) {
+                res[stack[top]] = i - stack[top];
+                top--;
+            }
+            stack[++top] = i;
+        }
+        return res;
+    }
 
-    public int[] dailyTemperatures(int[] temperatures) {
+
+    public int[] dailyTemperatures_MINE(int[] temperatures) {
         int len = temperatures.length;
         int[] res = new int[len];
         res[len-1] = 0;
