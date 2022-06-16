@@ -4,25 +4,25 @@ import java.util.*;
 
 class Solution {
     public long distinctNames(String[] ideas) {
-        Map<String, List<Character>> suffixToFirstChars = new HashMap<>();
-        Map<Character, List<String>> firstCharToStrs = new HashMap<>();
+        Map<String, Set<Character>> suffixToFirstChars = new HashMap<>();
+        Map<Character, Set<String>> firstCharToStrs = new HashMap<>();
 
         for(String s : ideas){
             String suffix = s.substring(1);
             if(!suffixToFirstChars.containsKey(suffix)){
-                suffixToFirstChars.put(suffix, new ArrayList<>());
+                suffixToFirstChars.put(suffix, new HashSet<>());
             }
             suffixToFirstChars.get(suffix).add(s.charAt(0));
 
             if(!firstCharToStrs.containsKey(s.charAt(0))){
-                firstCharToStrs.put(s.charAt(0), new ArrayList<>());
+                firstCharToStrs.put(s.charAt(0), new HashSet<>());
             }
             firstCharToStrs.get(s.charAt(0)).add(s);
         }
 
         int res = 0;
         for(String s : ideas){
-            List<Character> skipChars = suffixToFirstChars.get(s.substring(1));
+            Set<Character> skipChars = suffixToFirstChars.get(s.substring(1));
             for(Character c : firstCharToStrs.keySet()){
                 if(!skipChars.contains(c)){
                     for(String str : firstCharToStrs.get(c)) {
