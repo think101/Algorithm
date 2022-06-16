@@ -1,41 +1,38 @@
 package main.com.think101.leetcode.contest.Test297.NamingACompany;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class Solution {
     public long distinctNames(String[] ideas) {
-        Map<String, List<String>> suffixToStr = new HashMap<>();
-        Map<Character, List<String>> firstCharToStr = new HashMap<>();
+        Map<String, List<Character>> suffixToFirstChars = new HashMap<>();
+        Map<Character, List<String>> firstCharToStrs = new HashMap<>();
 
         for(String s : ideas){
             String suffix = s.substring(1);
-            if(!suffixToStr.containsKey(suffix)){
-                suffixToStr.put(suffix, new ArrayList<>());
+            if(!suffixToFirstChars.containsKey(suffix)){
+                suffixToFirstChars.put(suffix, new ArrayList<>());
             }
-            suffixToStr.get(suffix).add(s);
+            suffixToFirstChars.get(suffix).add(s.charAt(0));
 
-            if(!firstCharToStr.containsKey(s.charAt(0))){
-                firstCharToStr.put(s.charAt(0), new ArrayList<>());
+            if(!firstCharToStrs.containsKey(s.charAt(0))){
+                firstCharToStrs.put(s.charAt(0), new ArrayList<>());
             }
-            firstCharToStr.get(s.charAt(0)).add(s);
+            firstCharToStrs.get(s.charAt(0)).add(s);
         }
 
         int res = 0;
         for(String s : ideas){
-            List<Character> skipChars = new ArrayList<>();
-
-            for(String t : suffixToStr.get(s.substring(1))){
-                if(!s.equals(t)){
-                    skipChars.add(t.charAt(0));
-                }
-            }
-
-            for(Character c : firstCharToStr.keySet()){
+            List<Character> skipChars = suffixToFirstChars.get(s.substring(1));
+            for(Character c : firstCharToStrs.keySet()){
                 if(!skipChars.contains(c)){
-                    res += firstCharToStr.get(c).size();
+                    for(String str : firstCharToStrs.get(c)) {
+                        if(!suffixToFirstChars.get(s.substring(1)).contains(str.charAt(0))) {
+                            res += 1;
+                        }
+                    }
+                }
+                else if(c == s.charAt(0)) {
+                    res += firstCharToStrs.get(c).size() - 1;
                 }
             }
         }
