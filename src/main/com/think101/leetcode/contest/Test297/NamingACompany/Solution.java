@@ -4,13 +4,13 @@ import java.util.*;
 
 class Solution {
     public long distinctNames(String[] ideas) {
-        Map<Character, Set<String>> firstCharToSuffixes = new HashMap<>();
+        Map<Character, Set<Integer>> firstCharToSuffixes = new HashMap<>();
 
         for(String s : ideas){
             if(!firstCharToSuffixes.containsKey(s.charAt(0))){
                 firstCharToSuffixes.put(s.charAt(0), new HashSet<>());
             }
-            firstCharToSuffixes.get(s.charAt(0)).add(s.substring(1));
+            firstCharToSuffixes.get(s.charAt(0)).add(s.substring(1).hashCode());
         }
 
         long res = 0;
@@ -19,12 +19,12 @@ class Solution {
             for(int j = i+1; j < allFirstChars.size(); j++) {
                 long c1 = 0, c2 = 0;
 
-                for(String suffix : firstCharToSuffixes.get(allFirstChars.get(i))) {
+                for(int suffix : firstCharToSuffixes.get(allFirstChars.get(i))) {
                     if(!firstCharToSuffixes.get(allFirstChars.get(j)).contains(suffix))
                         c1++;
                 }
 
-                for(String suffix : firstCharToSuffixes.get(allFirstChars.get(j))) {
+                for(int suffix : firstCharToSuffixes.get(allFirstChars.get(j))) {
                     if(!firstCharToSuffixes.get(allFirstChars.get(i)).contains(suffix))
                         c2++;
                 }
