@@ -31,13 +31,6 @@ class Solution {
                         }
                     }
                 }
-                else if(c == s.charAt(0)) {
-                    for(String str : firstCharToStrs.get(c)) {
-                        if(str.charAt(0) != c) {
-                            res += 1;
-                        }
-                    }
-                }
             }
         }
 
