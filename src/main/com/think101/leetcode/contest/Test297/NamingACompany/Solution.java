@@ -4,37 +4,36 @@ import java.util.*;
 
 class Solution {
     public long distinctNames(String[] ideas) {
-        Map<String, Set<Character>> suffixToFirstChars = new HashMap<>();
-        Map<Character, Set<String>> firstCharToStrs = new HashMap<>();
+        Map<Character, Set<String>> firstCharToSuffixes = new HashMap<>();
 
         for(String s : ideas){
-            String suffix = s.substring(1);
-            if(!suffixToFirstChars.containsKey(suffix)){
-                suffixToFirstChars.put(suffix, new HashSet<>());
+            if(!firstCharToSuffixes.containsKey(s.charAt(0))){
+                firstCharToSuffixes.put(s.charAt(0), new HashSet<>());
             }
-            suffixToFirstChars.get(suffix).add(s.charAt(0));
-
-            if(!firstCharToStrs.containsKey(s.charAt(0))){
-                firstCharToStrs.put(s.charAt(0), new HashSet<>());
-            }
-            firstCharToStrs.get(s.charAt(0)).add(s);
+            firstCharToSuffixes.get(s.charAt(0)).add(s.substring(1));
         }
 
-        int res = 0;
-        for(String s : ideas){
-            Set<Character> skipChars = suffixToFirstChars.get(s.substring(1));
-            for(Character c : firstCharToStrs.keySet()){
-                if(!skipChars.contains(c)){
-                    for(String str : firstCharToStrs.get(c)) {
-                        if(!suffixToFirstChars.get(str.substring(1)).contains(s.charAt(0))) {
-                            res += 1;
-                        }
-                    }
+        long res = 0;
+        List<Character> allFirstChars = new ArrayList<>(firstCharToSuffixes.keySet());
+        for(int i = 0; i < allFirstChars.size(); i++) {
+            for(int j = i+1; j < allFirstChars.size(); j++) {
+                long c1 = 0, c2 = 0;
+
+                for(String suffix : firstCharToSuffixes.get(allFirstChars.get(i))) {
+                    if(!firstCharToSuffixes.get(allFirstChars.get(j)).contains(suffix))
+                        c1++;
                 }
+
+                for(String suffix : firstCharToSuffixes.get(allFirstChars.get(j))) {
+                    if(!firstCharToSuffixes.get(allFirstChars.get(i)).contains(suffix))
+                        c2++;
+                }
+
+                res += c1 * c2;
             }
         }
 
-        return res;
+        return res * 2;
     }
 
     public static void main(String[] args) {
