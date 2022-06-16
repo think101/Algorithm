@@ -26,13 +26,17 @@ class Solution {
             for(Character c : firstCharToStrs.keySet()){
                 if(!skipChars.contains(c)){
                     for(String str : firstCharToStrs.get(c)) {
-                        if(!suffixToFirstChars.get(s.substring(1)).contains(str.charAt(0))) {
+                        if(!suffixToFirstChars.get(str.substring(1)).contains(s.charAt(0))) {
                             res += 1;
                         }
                     }
                 }
                 else if(c == s.charAt(0)) {
-                    res += firstCharToStrs.get(c).size() - 1;
+                    for(String str : firstCharToStrs.get(c)) {
+                        if(str.charAt(0) != c) {
+                            res += 1;
+                        }
+                    }
                 }
             }
         }
@@ -43,5 +47,7 @@ class Solution {
     public static void main(String[] args) {
         Solution s = new Solution();
         System.out.println(s.distinctNames(new String[]{"coffee", "donuts", "time", "toffee"}));
+
+        System.out.println(s.distinctNames(new String[]{"lack", "back"}));
     }
 }
