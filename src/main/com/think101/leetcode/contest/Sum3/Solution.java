@@ -24,9 +24,13 @@ class Solution {
                 continue;
 
             for(int j = i+1; j < nums.length; j++) {
-                int t = - nums[i] - nums[j];
-                if(t < nums[j])
+                if(j - 1 >= 0 && j - 1 != i && nums[j - 1] == nums[j])
                     continue;
+
+                int t = - nums[i] - nums[j];
+                if( t < nums[j])
+                    continue;
+
                 if(count.containsKey(t) && count.get(t) >= (1
                         + (nums[i] == t ? 1 : 0) + (nums[j] == t ? 1 : 0))) {
                     result.add(Arrays.asList(nums[i], nums[j], t));
@@ -40,5 +44,8 @@ class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(solution.threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+
+        System.out.println(solution.threeSum(new int[]{0, 0, 0}));
+        System.out.println(solution.threeSum(new int[]{0, 0, 0, 0}));
     }
 }
