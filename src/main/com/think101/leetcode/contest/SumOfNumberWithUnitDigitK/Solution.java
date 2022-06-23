@@ -10,11 +10,9 @@ class Solution {
         
         int[] dp = new int[11];
         dp[0] = 0;
-        dp[1] = k;
-        
         int r = num % 10; 
         
-        for(int i = 2; i <= 10; i++){
+        for(int i = 1; i <= 10; i++){
             dp[i] = dp[i-1] + k;
             
             if(dp[i] % 10 == r  && dp[i] <= num) {
