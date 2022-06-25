@@ -4,6 +4,6 @@ class Solution {
     }
     
     private boolean helper(int n) {
-        return n >= 0 && (n % 4 == 0 || n % 5 == 0 || n % 6 == 0);
+        return n >= 0 && (n % 4 == 0);
     }
 }
