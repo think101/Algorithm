@@ -1,3 +1,5 @@
+package main.com.think101.leetcode.contest.SumOfNumberWithUnitDigitK;
+
 class Solution {
     public int minimumNumbers(int num, int k) {
         if(num == 0)

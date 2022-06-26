@@ -1,3 +1,5 @@
+package main.com.think101.leetcode.contest.NimGame;
+
 class Solution {
     public boolean canWinNim(int n) {
         return helper(n-1) || helper(n-2) || helper(n-3);

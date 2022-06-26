@@ -1,3 +1,8 @@
+package main.com.think101.leetcode.contest.RearrangeChar;
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public int rearrangeCharacters(String s, String target) {
         Map<Character, Integer> sCount = new HashMap<>();
