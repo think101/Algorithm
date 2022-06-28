@@ -21,11 +21,19 @@ class Solution {
             for(int j = i+1; j < cnts.size(); j++) {
                 int t = target - (int)cnts.keySet().toArray()[i] - (int)cnts.keySet().toArray()[j];
 
-                int floor = cnts.floorEntry(t).getKey();
-
+                Map.Entry<Integer, Integer> floorEntry =  cnts.floorEntry(t);
+                int floor = floorEntry == null ? 0 : floorEntry.getKey();
                 if(cnts.get(floor) >= (1 + (floor == i ? 1 : 0) + (floor == j ? 1 : 0))
-                        && Math.abs(target - floor) < Math.abs(target - result)) {
+                        && Math.abs(target - i - j - floor) < Math.abs(target - result)) {
                     result = i + j + floor;
+                }
+
+                Map.Entry<Integer, Integer> ceilingEntry =  cnts.ceilingEntry(t);
+                int ceiling = ceilingEntry == null ? (int)cnts.keySet().toArray()[cnts.size() - 1]
+                        : ceilingEntry.getKey();
+                if(cnts.get(ceiling) >= (1 + (ceiling == i ? 1 : 0) + (ceiling == j ? 1 : 0))
+                        && Math.abs(target - i - j - ceiling) < Math.abs(target - result)) {
+                    result = i + j + ceiling;
                 }
             }
         }
