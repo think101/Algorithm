@@ -15,7 +15,7 @@ class Solution {
             cnts.put(i, cnts.get(i) + 1);
         }
 
-        int result = Integer.MAX_VALUE;
+        int result = nums[0] + nums[1] + nums[2];
 
         for(int i = 0; i < cnts.size(); i++) {
             for(int j = i; j < cnts.size(); j++) {
