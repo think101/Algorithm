@@ -1,46 +1,27 @@
 package main.com.think101.leetcode.contest.Sum3Closest;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Arrays;
 
 class Solution {
     public int threeSumClosest(int[] nums, int target) {
-        TreeMap<Integer, Integer> cnts = new TreeMap<>();
-
-        for(int i : nums) {
-            if(!cnts.containsKey(i)) {
-                cnts.put(i, 0);
-            }
-
-            cnts.put(i, cnts.get(i) + 1);
-        }
-
+        Arrays.sort(nums);
         int result = nums[0] + nums[1] + nums[2];
 
-        for(int i = 0; i < cnts.size(); i++) {
-            for(int j = i; j < cnts.size(); j++) {
-                if(cnts.get(cnts.keySet().toArray()[j]) < 1 + (i == j ? 1 : 0))
-                    continue;
+        for(int i = 0; i < nums.length - 2; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
 
-                int t = target - (int)cnts.keySet().toArray()[i] - (int)cnts.keySet().toArray()[j];
-
-                Map.Entry<Integer, Integer> floorEntry =  cnts.floorEntry(t);
-                int floor = floorEntry == null ? (int)cnts.keySet().toArray()[0] : floorEntry.getKey();
-                if(cnts.get(floor) >= (1 + (floor == (int)cnts.keySet().toArray()[i] ? 1 : 0) +
-                        (floor == (int)cnts.keySet().toArray()[j] ? 1 : 0))
-                        && Math.abs(target - (int)cnts.keySet().toArray()[i] - (int)cnts.keySet().toArray()[j] - floor)
-                        < Math.abs(target - result)) {
-                    result = (int)cnts.keySet().toArray()[i] + (int)cnts.keySet().toArray()[j] + floor;
+            while(j < k) {
+                int t = nums[i] + nums[j] + nums[k];
+                if(Math.abs(result - target) > Math.abs(t - target)) {
+                    result = t;
                 }
 
-                Map.Entry<Integer, Integer> ceilingEntry =  cnts.ceilingEntry(t);
-                int ceiling = ceilingEntry == null ? (int)cnts.keySet().toArray()[cnts.size() - 1]
-                        : ceilingEntry.getKey();
-                if(cnts.get(ceiling) >= (1 + (ceiling == (int)cnts.keySet().toArray()[i] ? 1 : 0) +
-                        (ceiling == (int)cnts.keySet().toArray()[j] ? 1 : 0))
-                        && Math.abs(target - (int)cnts.keySet().toArray()[i] - (int)cnts.keySet().toArray()[j] - ceiling)
-                        < Math.abs(target - result)) {
-                    result = (int)cnts.keySet().toArray()[i] + (int)cnts.keySet().toArray()[j] + ceiling;
+                if( t < target){
+                    j++;
+                }
+                else {
+                    k--;
                 }
             }
         }
