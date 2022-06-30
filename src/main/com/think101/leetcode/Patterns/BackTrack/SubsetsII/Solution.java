@@ -1,7 +1,6 @@
 package main.com.think101.leetcode.Patterns.BackTrack.SubsetsII;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -18,15 +17,16 @@ class Solution {
         }
 
         List<List<Integer>> prev = helper(nums, i + 1);
-        List<List<Integer>> result = new ArrayList<>(prev);
+        Set<List<Integer>> result = new HashSet<>(prev);
 
         for(List<Integer> l : prev){
             List<Integer> c = new ArrayList<>(l);
             c.add(nums[i]);
+            Collections.sort(c);
             result.add(c);
         }
 
-        return result;
+        return new ArrayList<>(result);
     }
 
     public static void main(String[] args) {
