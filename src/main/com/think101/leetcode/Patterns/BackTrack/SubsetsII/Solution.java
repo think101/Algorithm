@@ -4,29 +4,26 @@ import java.util.*;
 
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        return helper(nums, 0);
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(nums, 0, new ArrayList<>(), result);
+        return result;
     }
 
-    List<List<Integer>> helper(int[] nums, int i) {
+    private void backtrack(int[] nums, int i, List<Integer> subset, List<List<Integer>> result) {
         if(i == nums.length) {
-            List<Integer> l = new ArrayList<>();
-            List<List<Integer>> res = new ArrayList<>();
-            res.add(l);
-
-            return res;
+            List<Integer> l = new ArrayList<>(subset);
+            result.add(l);
+            return;
         }
 
-        List<List<Integer>> prev = helper(nums, i + 1);
-        Set<List<Integer>> result = new HashSet<>(prev);
+        subset.add(nums[i]);
+        backtrack(nums, i + 1, subset, result);
+        subset.remove(subset.size() - 1);
 
-        for(List<Integer> l : prev){
-            List<Integer> c = new ArrayList<>(l);
-            c.add(nums[i]);
-            Collections.sort(c);
-            result.add(c);
-        }
-
-        return new ArrayList<>(result);
+        while(i + 1 < nums.length && nums[i + 1] == nums[i])
+            i++;
+        backtrack(nums, i + 1, subset, result);
     }
 
     public static void main(String[] args) {
