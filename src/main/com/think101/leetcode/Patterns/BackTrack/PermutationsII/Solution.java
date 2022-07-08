@@ -47,7 +47,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] nums = {1, 2, 2};
+        int[] nums = {1, 1, 2};
         List<List<Integer>> res = s.permuteUnique(nums);
         for(List<Integer> l : res) {
             for(int i : l) {
