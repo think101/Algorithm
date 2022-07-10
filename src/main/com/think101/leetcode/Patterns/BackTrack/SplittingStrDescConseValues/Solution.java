@@ -9,14 +9,14 @@ class Solution {
         return dfs(s, 0, new ArrayList<>());
     }
 
-    private boolean dfs(String s, int i, List<BigInteger> substrs) {
+    private boolean dfs(String s, int i, List<Double> substrs) {
         if (i == s.length() && substrs.size() > 1) {
             return true;
         }
 
         for(int j = i; j < s.length(); j++) {
-            BigInteger substrInt = new BigInteger(s.substring(i, j+1));
-            if(substrs.size() == 0 || substrs.get(substrs.size() - 1).subtract(substrInt).equals(BigInteger.ONE)) {
+            Double substrInt = Double.valueOf(s.substring(i, j+1));
+            if(substrs.size() == 0 || substrs.get(substrs.size() - 1) - substrInt == 1) {
                 substrs.add(substrInt);
                 if(dfs(s, j+1, substrs))
                     return true;
