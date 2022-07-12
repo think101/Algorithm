@@ -12,10 +12,11 @@ class Solution {
     }
 
     private int dfs(List<String> arr, int i, Set<Character> currChars) {
-        int res = 0;
         if(i == arr.size()) {
             return currChars.size();
         }
+
+        int res = 0;
 
         for(int j = i; j < arr.size(); j++) {
             String t = arr.get(j);
@@ -23,8 +24,9 @@ class Solution {
                 for(int k = 0; k < t.length(); k++)
                     currChars.add(t.charAt(k));
 
-                res = Math.max(res, dfs(arr, j+1, currChars));
+                res = Math.max(res, currChars.size());
 
+                res = Math.max(res, dfs(arr, j+1, currChars));
                 for(int k = 0; k < t.length(); k++)
                     currChars.remove(t.charAt(k));
             }
