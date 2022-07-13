@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Set;
 
 class Solution {
+
+    private int res = 0;
+
     public int maxLength(List<String> arr) {
         Set<Character> currChars = new HashSet<>();
 
-        return dfs(arr, 0, currChars);
+        dfs(arr, 0, currChars);
+        return res;
     }
 
-    private int dfs(List<String> arr, int i, Set<Character> currChars) {
+    private void dfs(List<String> arr, int i, Set<Character> currChars) {
         if(i == arr.size()) {
-            return currChars.size();
+            return;
         }
-
-        int res = 0;
 
         for(int j = i; j < arr.size(); j++) {
             String t = arr.get(j);
@@ -25,14 +27,12 @@ class Solution {
                     currChars.add(t.charAt(k));
 
                 res = Math.max(res, currChars.size());
+                dfs(arr, j+1, currChars);
 
-                res = Math.max(res, dfs(arr, j+1, currChars));
                 for(int k = 0; k < t.length(); k++)
                     currChars.remove(t.charAt(k));
             }
         }
-
-        return res;
     }
 
     private boolean isUniq(Set<Character> currChars, String s) {
