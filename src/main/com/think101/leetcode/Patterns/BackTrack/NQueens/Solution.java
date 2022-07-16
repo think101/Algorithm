@@ -19,10 +19,8 @@ class Solution {
 
     private void backtrack(int n, int i, Set<Integer> cols, Set<Integer> pDiags,
                            Set<Integer> nDiags, List<List<String>> res, List<String> curr) {
-        System.out.println(i);
-
         if( i == n) {
-            res.add(curr);
+            res.add(new ArrayList<>(curr));
             return;
         }
 
@@ -56,5 +54,6 @@ class Solution {
     public static void main(String[] args) {
         Solution sol = new Solution();
         System.out.println(sol.solveNQueens(4));
+        System.out.println(sol.solveNQueens(8));
     }
 }
