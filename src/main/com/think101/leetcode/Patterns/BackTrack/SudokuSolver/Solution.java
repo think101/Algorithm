@@ -1,27 +1,24 @@
 package main.com.think101.leetcode.Patterns.BackTrack.SudokuSolver;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 class Solution {
     Map<Integer, Set<Character>> rows = new HashMap<>();
     Map<Integer, Set<Character>> cols = new HashMap<>();
-    Map<Pair<Integer, Integer>, Set<Character>> subs = new HashMap<>();
+    Map<List<Integer>, Set<Character>> subs = new HashMap<>();
 
     public void solveSudoku(char[][] board) {
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 if(!rows.containsKey(i))
-                    rows.put(i, new HashSet<Character>());
+                    rows.put(i, new HashSet<>());
                 if(!cols.containsKey(j))
-                    cols.put(j, new HashSet<Character>());
+                    cols.put(j, new HashSet<>());
 
-                Pair<Integer, Integer> p = new Pair(i/3, j/3);
+                List<Integer> p = Arrays.asList(i/3, j/3);
                 if(!subs.containsKey(p))
-                    subs.put(p, new HashSet<Character>());
+                    subs.put(p, new HashSet<>());
 
                 if(board[i][j] != '.'){
                     rows.get(i).add(board[i][j]);
@@ -31,8 +28,7 @@ class Solution {
             }
         }
 
-        if(backtrack(0, 0, board))
-            return;
+        backtrack(0, 0, board);
     }
 
     private boolean backtrack(int i, int j, char[][] board) {
@@ -43,7 +39,7 @@ class Solution {
             return backtrack(j < 8 ? i : i+1, j < 8 ? j+1 : 0, board);
         }
 
-        Pair<Integer, Integer> p = new Pair(i/3, j/3);
+        List<Integer> p = Arrays.asList(i/3, j/3);
         for(int k = 1; k <= 9; k++) {
             char c = (char)('0' + k);
             if(rows.get(i).contains(c) || cols.get(j).contains(c) || subs.get(p).contains(c)) {
@@ -54,14 +50,6 @@ class Solution {
             cols.get(j).add(c);
             subs.get(p).add(c);
             board[i][j] = c;
-
-            if(j < 8) {
-                j++;
-            }
-            else {
-                i++;
-                j = 0;
-            }
 
             if(backtrack(j < 8 ? i : i+1, j < 8 ? j+1 : 0, board))
                 return true;
@@ -74,4 +62,27 @@ class Solution {
 
         return false;
     }
+
+    public static void main(String[] args) {
+        char[][] board = {
+            {'5','3','.','.','7','.','.','.','.'},
+            {'6','.','.','1','9','5','.','.','.'},
+            {'.','9','8','.','.','.','.','6','.'},
+            {'8','.','.','.','6','.','.','.','3'},
+            {'4','.','.','8','.','3','.','.','1'},
+            {'7','.','.','.','2','.','.','.','6'},
+            {'.','6','.','.','.','.','2','8','.'},
+            {'.','.','.','4','1','9','.','.','5'},
+            {'.','.','.','.','8','.','.','7','9'}
+        };
+        Solution sol = new Solution();
+        sol.solveSudoku(board);
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }
