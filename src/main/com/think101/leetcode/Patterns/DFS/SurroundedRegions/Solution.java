@@ -4,6 +4,11 @@ import java.util.*;
 
 public class Solution {
     public void solve(char[][] board) {
+        /*
+         * Should not use Set<int[]> here, since Arrays don't override equals() and hashCode()
+         * implemented in Object class, and therefor two arrays a1 and a2 will be considered equal by HashSet only
+         * if a1==a2.
+         */
         Set<List<Integer>> visited = new HashSet<>();
         List<List<Integer>> os = new ArrayList<>();
 
