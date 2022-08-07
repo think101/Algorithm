@@ -1,56 +1,53 @@
 package main.com.think101.leetcode.Patterns.DFS.SurroundedRegions;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
     public void solve(char[][] board) {
-        Set<int[]> visited = new HashSet<>();
-        List<int[]> os = new ArrayList<>();
+        Set<List<Integer>> visited = new HashSet<>();
+        List<List<Integer>> os = new ArrayList<>();
 
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[0].length; j++){
                 if(board[i][j] == 'O'){
-                    os.add(new int[]{i, j});
+                    os.add(Arrays.asList(i, j));
                 }
             }
         }
 
-        for(int[] node : os){
+        for(List<Integer> node : os){
             if(visited.contains(node))
                 continue;
 
-            Set<int[]> current = new HashSet<>();
-            boolean captured = dfs(node[0], node[1], visited, current, board);
+            Set<List<Integer>> current = new HashSet<>();
+            boolean captured = dfs(node.get(0), node.get(1), visited, current, board);
 
             if(captured) {
-                for(int[] c : current) {
-                    board[c[0]][c[1]] = 'X';
+                for(List<Integer> c : current) {
+                    board[c.get(0)][c.get(1)] = 'X';
                 }
             }
         }
 
     }
 
-    private boolean dfs(int i, int j, Set<int[]> visited, Set<int[]> current, char[][] board) {
+    private boolean dfs(int i, int j, Set<List<Integer>> visited, Set<List<Integer>> current, char[][] board) {
         int row = board.length, col = board[0].length;
         boolean res = i != 0 && i != row - 1 && j != 0 && j != col - 1;
 
-        visited.add(new int[]{i, j});
-        current.add(new int[]{i, j});
+        visited.add(Arrays.asList(i, j));
+        current.add(Arrays.asList(i, j));
 
-        if(i-1 >= 0 && board[i-1][j] == 'O' && !visited.contains(new int[]{i-1, j}))
+        if(i-1 >= 0 && board[i-1][j] == 'O' && !visited.contains(Arrays.asList(i-1, j)))
             if(!dfs(i-1, j, visited, current, board))
                 res = false;
-        if(i+1 < row && board[i+1][j] == 'O' && !visited.contains(new int[]{i+1, j}))
+        if(i+1 < row && board[i+1][j] == 'O' && !visited.contains(Arrays.asList(i+1, j)))
             if(!dfs(i+1, j, visited, current, board))
                 res = false;
-        if(j-1 >= 0 && board[i][j-1] == 'O' && !visited.contains(new int[]{i, j-1}))
+        if(j-1 >= 0 && board[i][j-1] == 'O' && !visited.contains(Arrays.asList(i, j-1)))
             if(!dfs(i, j-1, visited, current, board))
                 res = false;
-        if(j+1 < col && board[i][j+1] == 'O' && !visited.contains(new int[]{i, j+1}))
+        if(j+1 < col && board[i][j+1] == 'O' && !visited.contains(Arrays.asList(i, j+1)))
             if(!dfs(i, j+1, visited, current, board))
                 res = false;
 
