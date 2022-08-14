@@ -8,18 +8,13 @@ public class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
         if(n <= 2) return IntStream.rangeClosed(0, n-1).boxed().collect(Collectors.toList());
 
-        Map<Integer, List<Integer>> graph = new HashMap<>();
-        Map<Integer, Integer> degrees = new HashMap<>();
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
 
+        for(int i = 0; i < n; i++) {
+            graph.put(i, new HashSet<>());
+        }
         for(int[] edge : edges) {
-            if(!graph.containsKey(edge[0])){
-                graph.put(edge[0], new ArrayList<>());
-            }
             graph.get(edge[0]).add(edge[1]);
-
-            if(!graph.containsKey(edge[1])){
-                graph.put(edge[1], new ArrayList<>());
-            }
             graph.get(edge[1]).add(edge[0]);
         }
 
@@ -28,31 +23,26 @@ public class Solution {
             if(graph.get(i).size() == 1) {
                 queue.add(i);
             }
-
-            degrees.put(i, graph.get(i).size());
         }
 
-        while(queue.size() > 0) {
-            if(degrees.size() <= 2) {
-                break;
-            }
-
+        while(graph.size() > 2) {
             int size = queue.size();
             for(int i = 0; i < size; i++) {
                 int t = queue.poll();
-                degrees.remove(t);
                 for(int neighbor : graph.get(t)) {
-                    if (degrees.containsKey(neighbor)) {
-                        degrees.put(neighbor, degrees.get(neighbor) - 1);
-                        if(degrees.get(neighbor) == 1) {
+                    if (graph.containsKey(neighbor)) {
+                        graph.get(neighbor).remove(t);
+                        if(graph.get(neighbor).size() == 1) {
                             queue.add(neighbor);
                         }
                     }
                 }
+
+                graph.remove(t);
             }
         }
 
-        return new ArrayList<>(degrees.keySet());
+        return new ArrayList<>(queue);
     }
 
     public static void main(String[] args) {
