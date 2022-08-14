@@ -27,7 +27,6 @@ public class Solution {
         for(int i : graph.keySet()) {
             if(graph.get(i).size() == 1) {
                 queue.add(i);
-                continue;
             }
 
             degrees.put(i, graph.get(i).size());
@@ -38,12 +37,17 @@ public class Solution {
                 break;
             }
 
-            int t = queue.poll();
-            for(int neighbor : graph.get(t)) {
-                degrees.put(neighbor, degrees.get(neighbor) - 1);
-                if(degrees.get(neighbor) == 1) {
-                    queue.add(neighbor);
-                    degrees.remove(neighbor);
+            int size = queue.size();
+            for(int i = 0; i < size; i++) {
+                int t = queue.poll();
+                degrees.remove(t);
+                for(int neighbor : graph.get(t)) {
+                    if (degrees.containsKey(neighbor)) {
+                        degrees.put(neighbor, degrees.get(neighbor) - 1);
+                        if(degrees.get(neighbor) == 1) {
+                            queue.add(neighbor);
+                        }
+                    }
                 }
             }
         }
