@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Solution {
     List<Integer> res = new ArrayList<>();
+    Set<Integer> resSet = new HashSet<>();
     Map<Integer, Set<Integer>> graph = new HashMap<>();
 
     public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -26,7 +27,7 @@ public class Solution {
 
     private boolean dfs(int course, Set<Integer> visited) {
         if(visited.contains(course)) return false; // circle exists
-        else if(res.contains(course)) return true;
+        else if(resSet.contains(course)) return true;
 
         visited.add(course);
         for(int p : graph.get(course)) {
@@ -37,6 +38,7 @@ public class Solution {
 
         visited.remove(course);
         res.add(course);
+        resSet.add(course);
         return true;
     }
 
