@@ -6,6 +6,7 @@ public class Solution {
     private Set<String> reSet;
     private Set<String> suSet;
     Map<String, List<String>> recipeToIngreds = new HashMap<>();
+    Map<String, Boolean> checked = new HashMap<>();
 
     private final Set<String> res = new HashSet<>();
 
@@ -27,10 +28,24 @@ public class Solution {
     }
 
     private boolean dfs(String recipe, Set<String> visited) {
-        if(visited.contains(recipe)) return false;    // circle
+        if(visited.contains(recipe)) {
+            checked.put(recipe, false);
+            return false;    // circle
+        }
 
         for(String ing : recipeToIngreds.get(recipe)) {
+            if(checked.containsKey(ing)) {
+                if(!checked.get(ing)) {
+                    checked.put(recipe, false);
+                    return false;
+                }
+                else {
+                    continue;
+                }
+            }
+
             if(!(suSet.contains(ing) || reSet.contains(ing))){
+                checked.put(recipe, false);
                 return false;
             }
 
@@ -39,11 +54,14 @@ public class Solution {
                 boolean create = dfs(ing, visited);
                 visited.remove(visited.size() - 1);
 
-                if(!create)
+                if(!create) {
+                    checked.put(recipe, false);
                     return false;
+                }
             }
         }
 
+        checked.put(recipe, true);
         return true;
     }
 
