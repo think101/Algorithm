@@ -18,21 +18,28 @@ public class MyCalendar {
             return true;
         }
 
+        boolean res;
         if(floorKey == null) {
-            return end <= cals.firstKey();
+            res = end <= cals.firstKey();
         }
         else if(floorKey.equals(cals.lastKey())){
-            return start >= cals.get(cals.lastKey());
+            res = start >= cals.get(cals.lastKey());
         }
         else {
-            return start >= cals.get(floorKey) && end <= ceilingKey;
+            res = start >= cals.get(floorKey) && end <= ceilingKey;
         }
+
+        if(res) {
+            cals.put(start, end);
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
         MyCalendar obj = new MyCalendar();
-        System.out.println(obj.book(10, 20));
-        System.out.println(obj.book(15, 25));
-        System.out.println(obj.book(20, 30));
+        System.out.println(obj.book(47, 50));
+        System.out.println(obj.book(33, 41));
+        System.out.println(obj.book(39, 45));
     }
 }
