@@ -1,5 +1,7 @@
 package main.com.think101.leetcode.Patterns.SegmentTree.MyCalendarII;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -46,10 +48,28 @@ public class MyCalendarTwo {
             return true;
         }
         else {
+            List<int[]> addToSingle = new ArrayList<>();
+            int t1 = -1;
+            int t2 = -1;
             for(Map.Entry<Integer, Integer> entry : singleBooking.entrySet()) {
                 if( !(start >= entry.getValue() || end <= entry.getKey())) {
-                    doubleBooking.put(Math.max(start, entry.getKey()), Math.min(end, entry.getValue()));
+                    t1 = Math.max(start, entry.getKey());
+                    t2 = Math.min(end, entry.getValue());
+                    doubleBooking.put(t1, t2);
+
+                    if(start != t1) {
+                        addToSingle.add(new int[]{start, t1});
+                        start = t2;
+                    }
                 }
+            }
+
+            for(int[] a : addToSingle) {
+                singleBooking.put(a[0], a[1]);
+            }
+
+            if(end > t2) {
+                singleBooking.put(t2, end);
             }
         }
 
@@ -58,12 +78,16 @@ public class MyCalendarTwo {
 
     public static void main(String[] args) {
         MyCalendarTwo myCalendarTwo = new MyCalendarTwo();
-        System.out.println(myCalendarTwo.book(10, 20));
-        System.out.println(myCalendarTwo.book(50, 60));
-        System.out.println(myCalendarTwo.book(10, 40));
-        System.out.println(myCalendarTwo.book(5, 15));
-        System.out.println(myCalendarTwo.book(5, 10));
-        System.out.println(myCalendarTwo.book(25, 55));
+        System.out.println(myCalendarTwo.book(47, 50));
+        System.out.println(myCalendarTwo.book(1, 10));
+        System.out.println(myCalendarTwo.book(27, 36));
+        System.out.println(myCalendarTwo.book(40, 47));
+        System.out.println(myCalendarTwo.book(20, 27));
+        System.out.println(myCalendarTwo.book(15, 23));
+        System.out.println(myCalendarTwo.book(10, 18));
+        System.out.println(myCalendarTwo.book(27, 36));
+        System.out.println(myCalendarTwo.book(17, 25));
+        System.out.println(myCalendarTwo.book(8, 17));
     }
 }
 
