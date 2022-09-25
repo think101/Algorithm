@@ -1,49 +1,31 @@
 package main.com.think101.leetcode.Patterns.Greedy.ValidParenthesisString;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Solution {
     public boolean checkValidString(String s) {
-        Queue<Character> queue = new LinkedList<>();
+        int openMin = 0, openMax = 0;
 
-        int i = 0;
-        while( i < s.length() ) {
+        for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-
-            if(c == '(') {
-                queue.add(c);
+            if(c == '('){
+                openMin++;
+                openMax++;
             }
-            else if (c == ')') {
-                if(queue.size() == 0) return false;
+            else if(c == ')'){
+                openMin--;
+                openMax--;
 
-                queue.poll();
+                if(openMax < 0) return false;
+                if(openMin < 0) openMin = 0;
             }
             else {
-                // process * char
+                openMin--;
+                openMax++;
 
-                // queue's size and ')' char count should be within 1
-                int j = i+1;
-                while(j < s.length() && s.charAt(j) == ')'){
-                    j++;
-                }
-
-                if(j - 1 - i > 0) {
-                    int pollCnt = Math.min(queue.size(), j - 1 - i);
-                    for(int k = 0; k < pollCnt; k++)
-                        queue.poll();
-
-                    i = j;
-                }
-                else {
-                    queue.add('(');
-                }
+                if(openMin < 0) openMin = 0;
             }
-
-            i++;
         }
 
-        return queue.size() == 0;
+        return openMin <= 0 && 0 <= openMax;
     }
 
     public static void main(String[] args) {
