@@ -1,15 +1,7 @@
 package main.com.think101.leetcode.Patterns.Trees.InvertBinaryTree;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
 
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-}
+import main.com.think101.leetcode.Patterns.Trees.TreeNode;
 
 public class Solution {
     public TreeNode invertTree(TreeNode root) {
