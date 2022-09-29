@@ -11,7 +11,6 @@ public class Solution {
         return res;
     }
 
-
     // int[2]
     // int[0] is max path sum connecting two childs
     // int[1] is max path sum connection one child
