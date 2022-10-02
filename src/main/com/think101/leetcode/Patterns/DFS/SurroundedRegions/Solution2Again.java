@@ -3,7 +3,7 @@ package main.com.think101.leetcode.Patterns.DFS.SurroundedRegions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolutionAgain {
+public class Solution2Again {
     public void solve(char[][] board) {
         int row = board.length, col = board[0].length;
         List<int[]> edgeOs = new ArrayList<>();
@@ -46,7 +46,7 @@ public class SolutionAgain {
     }
 
     public static void main(String[] args) {
-        SolutionAgain s = new SolutionAgain();
+        Solution2Again s = new Solution2Again();
         char[][] board = new char[][]{
                 {'X','X','X','X'},
                 {'X','O','O','X'},
