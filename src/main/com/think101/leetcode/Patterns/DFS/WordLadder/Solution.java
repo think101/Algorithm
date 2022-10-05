@@ -9,9 +9,10 @@ public class Solution {
         char[] alphabet = new char[]{'a','b','c','d','e','f','g','h','i','j','k',
                 'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         Map<String, Set<String>> graph = new HashMap<>();
+        Set<String> wordSet = new HashSet<>(wordList);
 
         // find neighbors 1 char away
-        for(String w : wordList) {
+        for(String w : wordSet) {
             if(!graph.containsKey(w)) {
                 graph.put(w, new HashSet<>());
             }
@@ -20,7 +21,7 @@ public class Solution {
                 for(char c : alphabet) {
                     if(c != w.charAt(i)) {
                         String t = w.substring(0, i) + c + w.substring(i+1);
-                        if(wordList.contains(t)) {
+                        if(wordSet.contains(t)) {
                             graph.get(w).add(t);
 
                             if(!graph.containsKey(t))
@@ -41,7 +42,7 @@ public class Solution {
             for(char c : alphabet) {
                 if(c != beginWord.charAt(i)) {
                     String t = beginWord.substring(0, i) + c + beginWord.substring(i+1);
-                    if(wordList.contains(t)) {
+                    if(wordSet.contains(t)) {
                         visited.add(t);
                         if(dfs(t, endWord, visited, graph))
                             b = true;
@@ -68,6 +69,10 @@ public class Solution {
             return true;
         }
         if(!graph.containsKey(start)) return false;
+        if(graph.get(start).contains(end)) {
+            res = Math.min(res, visited.size() + 1);
+            return true;
+        }
 
         boolean r = false;
 
