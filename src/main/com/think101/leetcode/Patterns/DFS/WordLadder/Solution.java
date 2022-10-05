@@ -59,9 +59,12 @@ public class Solution {
     }
 
     private boolean dfs(String start, String end, Set<String> visited, Map<String, Set<String>> graph){
-        //System.out.println(start + ":" + end);
+        if(visited.size() > res)
+            return false;
+        System.out.println(start + ":" + end);
         if(start.equals(end)) {
             res = Math.min(res, visited.size());
+            //System.out.println("return: " + res);
             return true;
         }
         if(!graph.containsKey(start)) return false;
@@ -85,6 +88,7 @@ public class Solution {
     public static void main(String[] args) {
         Solution s = new Solution();
         System.out.println(s.ladderLength("hit", "cog", Arrays.asList("hot","dot","dog","lot","log","cog")));
+
         System.out.println(s.ladderLength("hit", "cog", Arrays.asList("hot","dot","dog","lot","log")));
         System.out.println(s.ladderLength("qa", "sq",
                 Arrays.asList("si","go","se","cm","so","ph","mt","db","mb","sb","kr","ln","tm","le",
@@ -94,5 +98,6 @@ public class Solution {
                         "hz","no","bi","di","hi","qa","pi","os","uh","wm","an","me","mo","na","la",
                         "st","er","sc","ne","mn","mi","am","ex","pt","io","be","fm","ta","tb","ni",
                         "mr","pa","he","lr","sq","ye")));
+
     }
 }
