@@ -12,18 +12,16 @@ public class Solution {
             cnts.put(i, cnts.get(i) + 1);
         }
 
-        Map<Integer, Set<Integer>> cntToNums = new TreeMap<>(Collections.reverseOrder());
+        List<Set<Integer>> buckets = new ArrayList<>(nums.length + 1);
+        for(int i = 0; i < nums.length+1; i++) buckets.add(new HashSet<>());
         for(int key : cnts.keySet()) {
-            if(!cntToNums.containsKey(cnts.get(key)))
-                cntToNums.put(cnts.get(key), new HashSet<>());
-
-            cntToNums.get(cnts.get(key)).add(key);
+            buckets.get(cnts.get(key)).add(key);
         }
 
         int[] res = new int[k];
         int t = 0;
-        for(int key : cntToNums.keySet()) {
-            for(int n : cntToNums.get(key)){
+        for(int i = nums.length; i >= 0; i--) {
+            for(int n : buckets.get(i)){
                 res[t++] = n;
                 if (t == k)
                     return res;
