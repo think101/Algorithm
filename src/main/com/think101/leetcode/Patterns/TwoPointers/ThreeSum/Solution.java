@@ -21,6 +21,8 @@ public class Solution {
             if(i - 1 >= 0 && nums[i] == nums[i-1]) continue;
 
             for(int j = i+1; j < len; j++){
+                if(j - 1 >= i+1 && nums[j] == nums[j-1]) continue;
+
                 if(nums[i] + nums[j] > 0) break;
 
                 int t = - nums[i] - nums[j];
