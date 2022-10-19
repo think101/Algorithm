@@ -27,13 +27,26 @@ public class Solution {
 
     private boolean checkRange(String s, int i, int len, Map<Character, Integer> cnt) {
         Map<Character, Integer> currCnt = new HashMap<>();
-        for(int j = i; j < i + len; j++) {
+        for(int j = i; j < (i + len) && j < s.length(); j++) {
             if(!currCnt.containsKey(s.charAt(j)))
-                cnt.put(s.charAt(j), 0);
+                currCnt.put(s.charAt(j), 0);
 
             currCnt.put(s.charAt(j), currCnt.get(s.charAt(j)) + 1);
         }
 
-        return false;
+        if(cnt.size() != currCnt.size())
+            return false;
+
+        for(char c : currCnt.keySet()) {
+            if(!cnt.containsKey(c) || cnt.get(c) != currCnt.get(c))
+                return false;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.checkInclusion("hello", "ooolleoooleh"));
     }
 }
