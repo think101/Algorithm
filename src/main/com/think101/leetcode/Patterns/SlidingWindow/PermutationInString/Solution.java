@@ -2,6 +2,7 @@ package main.com.think101.leetcode.Patterns.SlidingWindow.PermutationInString;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Solution {
     public boolean checkInclusion(String s1, String s2) {
@@ -38,7 +39,7 @@ public class Solution {
             return false;
 
         for(char c : currCnt.keySet()) {
-            if(!cnt.containsKey(c) || cnt.get(c) != currCnt.get(c))
+            if(!cnt.containsKey(c) || !Objects.equals(cnt.get(c), currCnt.get(c)))
                 return false;
         }
 
