@@ -2,45 +2,62 @@ package main.com.think101.leetcode.Patterns.SlidingWindow.PermutationInString;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        Map<Character, Integer> cnt = new HashMap<>();
+        Map<Character, Integer> s1Cnt = new HashMap<>();
+        Map<Character, Integer> s2Cnt = new HashMap<>();
 
         for(int i = 0; i < s1.length(); i++) {
-            if(!cnt.containsKey(s1.charAt(i)))
-                cnt.put(s1.charAt(i), 0);
+            char c = s1.charAt(i);
+            if(!s1Cnt.containsKey(c))
+                s1Cnt.put(c, 0);
 
-            cnt.put(s1.charAt(i), cnt.get(s1.charAt(i)) + 1);
+            s1Cnt.put(c, s1Cnt.get(c) + 1);
         }
 
-        for(int i = 0; i < s2.length(); i++) {
+        for(int i = 0; i < s1.length(); i++) {
+            if(i >= s2.length()) break;
             char c = s2.charAt(i);
-            if(cnt.containsKey(c)) {
-                if(checkRange(s2, i, s1.length(), cnt))
-                    return true;
-            }
+            if(!s2Cnt.containsKey(c))
+                s2Cnt.put(c, 0);
+
+            s2Cnt.put(c, s2Cnt.get(c) + 1);
+        }
+
+        if(checkCnt(s1Cnt, s2Cnt)) return true;
+
+        for(int i = 1; i < s2.length(); i++) {
+            if(i + s1.length() - 1 >= s2.length()) break;
+
+            char addChar = s2.charAt(i + s1.length() - 1);
+            char removeChar = s2.charAt(i-1);
+
+            if(!s2Cnt.containsKey(addChar))
+                s2Cnt.put(addChar, 1);
+            else
+                s2Cnt.put(addChar, s2Cnt.get(addChar) + 1);
+
+            if(s2Cnt.get(removeChar) == 1)
+                s2Cnt.remove(removeChar);
+            else
+                s2Cnt.put(removeChar, s2Cnt.get(removeChar) - 1);
+
+            if(checkCnt(s1Cnt, s2Cnt)) return true;
         }
 
         return false;
     }
 
-    private boolean checkRange(String s, int i, int len, Map<Character, Integer> cnt) {
-        Map<Character, Integer> currCnt = new HashMap<>();
-        for(int j = i; j < (i + len) && j < s.length(); j++) {
-            if(!currCnt.containsKey(s.charAt(j)))
-                currCnt.put(s.charAt(j), 0);
-
-            currCnt.put(s.charAt(j), currCnt.get(s.charAt(j)) + 1);
+    private boolean checkCnt(Map<Character, Integer> s1Cnt, Map<Character, Integer> s2Cnt) {
+        if(s1Cnt.size() != s2Cnt.size()) {
+            return false;
         }
 
-        if(cnt.size() != currCnt.size())
-            return false;
-
-        for(char c : currCnt.keySet()) {
-            if(!cnt.containsKey(c) || !Objects.equals(cnt.get(c), currCnt.get(c)))
+        for(char c : s2Cnt.keySet()) {
+            if(!s1Cnt.containsKey(c) || !s1Cnt.get(c).equals(s2Cnt.get(c))) {
                 return false;
+            }
         }
 
         return true;
