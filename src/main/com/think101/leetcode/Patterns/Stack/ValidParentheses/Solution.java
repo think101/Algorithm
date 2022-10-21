@@ -4,16 +4,16 @@ import java.util.Stack;
 
 public class Solution {
     public boolean isValid(String s) {
-        Stack<Character> q = new Stack<>();
+        Stack<Character> stack = new Stack<>();
 
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(c == '(' || c == '{' || c == '[')
-                q.push(c);
+                stack.push(c);
             else {
-                if(q.size() == 0) return false;
+                if(stack.size() == 0) return false;
 
-                char t = q.pop();
+                char t = stack.pop();
 
                 if((t == '(' && c != ')')
                         || (t == '[' && c != ']')
@@ -23,7 +23,7 @@ public class Solution {
             }
         }
 
-        return true;
+        return stack.empty();
     }
 
     public static void main(String[] args) {
