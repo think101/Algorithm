@@ -19,10 +19,10 @@ public class Solution {
         while(s.size() > 0) {
             res++;
             int i = s.pop();
-            int steps = (int)Math.ceil((double)(target - position[i]) / speed[i]);
+            double time = (double)(target - position[i]) / speed[i];
             while(s.size() > 0) {
-                int peekSteps = (int)Math.ceil((double)(target - position[s.peek()]) / speed[s.peek()]);
-                if(speed[i] < speed[s.peek()] && peekSteps <= steps) {
+                double peekTime = (double)(target - position[s.peek()]) / speed[s.peek()];
+                if(peekTime <= time) {
                     s.pop();
                 }
                 else {
