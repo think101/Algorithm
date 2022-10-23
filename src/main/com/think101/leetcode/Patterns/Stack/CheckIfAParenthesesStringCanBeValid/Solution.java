@@ -9,9 +9,9 @@ public class Solution {
         Stack<Character> lockChars = new Stack<>();
 
         for(int i = 0; i < len; i++) {
-            if(locked.charAt(i) != '1'){
+            if(locked.charAt(i) == '1'){
                 if(s.charAt(i) == ')') {
-                    if(lockChars.size() == 0 || lockChars.peek() != '(' || unlockCnt == 0) return false;
+                    if((lockChars.size() == 0 || lockChars.peek() != '(') && unlockCnt == 0) return false;
                     else if(lockChars.size() > 0 && lockChars.peek() == '(') lockChars.pop();
                     else if(unlockCnt > 0) unlockCnt--;
                 }
@@ -30,6 +30,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.canBeValid("))()))", "010100"));
+        System.out.println(s.canBeValid("((()(()())", "1011110010"));
     }
 }
