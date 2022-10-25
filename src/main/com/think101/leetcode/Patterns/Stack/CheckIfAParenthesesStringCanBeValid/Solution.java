@@ -5,27 +5,33 @@ import java.util.Stack;
 public class Solution {
     public boolean canBeValid(String s, String locked) {
         int len = s.length();
-        int unlockCnt = 0;
-        Stack<Character> lockChars = new Stack<>();
+        Stack<Character> stack = new Stack<>();
+        int lockChars = 0;
 
         for(int i = 0; i < len; i++) {
             if(locked.charAt(i) == '1'){
                 if(s.charAt(i) == ')') {
-                    if((lockChars.size() == 0 || lockChars.peek() != '(') && unlockCnt == 0) return false;
-                    else if(lockChars.size() > 0 && lockChars.peek() == '(') lockChars.pop();
-                    else if(unlockCnt > 0) unlockCnt--;
+                    if((stack.size() == 0 || (stack.peek() != '(' && stack.peek() != '1'))) return false;
+                    else {
+                        if(stack.peek() == '(') lockChars--;
+                        stack.pop();
+                    }
                 }
                 else {
-                    lockChars.push(s.charAt(i));
+                    stack.push(s.charAt(i));
+                    lockChars++;
                 }
             }
             else {
-                if(lockChars.size() > 0) lockChars.pop();
-                else unlockCnt++;
+                if(stack.size() > 0 && stack.peek() == '(') {
+                    stack.pop();
+                    lockChars--;
+                }
+                else stack.push('1');
             }
         }
 
-        return unlockCnt % 2 == 0 && lockChars.size() == 0;
+        return stack.size() % 2 == 0 && lockChars == 0;
     }
 
     public static void main(String[] args) {
