@@ -1,37 +1,23 @@
 package main.com.think101.leetcode.Patterns.Stack.CheckIfAParenthesesStringCanBeValid;
 
-import java.util.Stack;
-
 public class Solution {
     public boolean canBeValid(String s, String locked) {
-        int len = s.length();
-        Stack<Character> stack = new Stack<>();
-        int lockChars = 0;
+        return s.length() % 2 == 0 && valid(s, locked, '(') && valid(s, locked, ')');
+    }
 
-        for(int i = 0; i < len; i++) {
-            if(locked.charAt(i) == '1'){
-                if(s.charAt(i) == ')') {
-                    if((stack.size() == 0 || (stack.peek() != '(' && stack.peek() != '1'))) return false;
-                    else {
-                        if(stack.peek() == '(') lockChars--;
-                        stack.pop();
-                    }
-                }
-                else {
-                    stack.push(s.charAt(i));
-                    lockChars++;
-                }
-            }
-            else {
-                if(stack.size() > 0 && stack.peek() == '(') {
-                    stack.pop();
-                    lockChars--;
-                }
-                else stack.push('1');
-            }
+    private boolean valid(String s, String locked, char c) {
+        int balance = 0, unlocked = 0;
+        int start = c == '(' ? 0 : s.length() - 1;
+        int inc = c == '(' ? 1 : -1;
+
+        for(int i = start; i < s.length() && i >= 0 && balance + unlocked >= 0; i += inc) {
+            char t = s.charAt(i);
+            if(locked.charAt(i) != '1') unlocked++;
+            else if(t == c) balance++;
+            else balance--;
         }
 
-        return stack.size() % 2 == 0 && lockChars == 0;
+        return Math.abs(balance) <= unlocked;
     }
 
     public static void main(String[] args) {
