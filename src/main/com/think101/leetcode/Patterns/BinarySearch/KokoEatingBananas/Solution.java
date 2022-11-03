@@ -8,7 +8,7 @@ public class Solution {
         int len = piles.length;
         int res = Integer.MAX_VALUE;
 
-        int l = piles[0], r = piles[len - 1];
+        int l = 0, r = piles[len - 1];
         while(l <= r) {
             int m = (l + r) / 2;
             int t = 0;
