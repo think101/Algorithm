@@ -20,21 +20,31 @@ public class TimeMap {
     }
 
     public String get(String key, int timestamp) {
-        TreeMap m = store.get(key);
+        TreeMap<Integer, String> m = store.get(key);
 
         if(m != null) {
-            Integer[] keys = m.keySet().toArray();
+            Integer[] keys = m.keySet().toArray(new Integer[0]);
             int l = 0, r = keys.length;
             while(l <= r) {
                 int middle = (l + r) / 2;
                 if(keys[middle] == timestamp) return m.get(middle);
-                else if(keys[middle] < timestamp) l = m + 1;
-                else r = m - 1;
+                else if(keys[middle] < timestamp) l = middle + 1;
+                else r = middle - 1;
             }
 
             if(keys[r] < timestamp) return m.get(r);
         }
 
         return "";
+    }
+
+    public static void main(String[] args) {
+        TimeMap s = new TimeMap();
+        s.set("foo", "bar", 1);
+        System.out.println(s.get("foo", 1));
+        System.out.println(s.get("foo", 3));
+        s.set("foo", "bar2", 4);
+        System.out.println(s.get("foo", 4));
+        System.out.println(s.get("foo", 5));
     }
 }
