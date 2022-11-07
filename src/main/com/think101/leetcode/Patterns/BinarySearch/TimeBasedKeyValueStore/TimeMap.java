@@ -24,15 +24,15 @@ public class TimeMap {
 
         if(m != null) {
             Integer[] keys = m.keySet().toArray(new Integer[0]);
-            int l = 0, r = keys.length;
+            int l = 0, r = keys.length - 1;
             while(l <= r) {
                 int middle = (l + r) / 2;
-                if(keys[middle] == timestamp) return m.get(middle);
+                if(keys[middle] == timestamp) return m.get(keys[middle]);
                 else if(keys[middle] < timestamp) l = middle + 1;
                 else r = middle - 1;
             }
 
-            if(keys[r] < timestamp) return m.get(r);
+            if(r >= 0 && keys[r] < timestamp) return m.get(keys[r]);
         }
 
         return "";
