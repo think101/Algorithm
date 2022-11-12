@@ -1,11 +1,6 @@
 package main.com.think101.leetcode.Patterns.LinkedList.ReverseLinkedList;
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; }
-    ListNode(int x, ListNode next) { val = x; this.next = next; }
-}
+import main.com.think101.leetcode.Patterns.LinkedList.ListNode;
 
 public class Solution {
     public ListNode reverseList(ListNode head) {
