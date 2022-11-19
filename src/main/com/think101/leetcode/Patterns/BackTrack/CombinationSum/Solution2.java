@@ -13,9 +13,8 @@ public class Solution2 {
     }
 
     private void backtrack(List<Integer> curr, int i, int[] candidates, int target) {
-        int s = sum(curr);
-        if(s > target) return;
-        else if(s == target) {
+        if(target < 0) return;
+        else if(target == 0) {
             res.add(new ArrayList<>(curr));
             return;
         }
@@ -23,18 +22,9 @@ public class Solution2 {
         if(i >= candidates.length ) return;
 
         curr.add(candidates[i]);
-        backtrack(curr, i, candidates, target);
+        backtrack(curr, i, candidates, target - candidates[i]);
         curr.remove(curr.size() - 1);
-        backtrack(curr, i + 1, candidates, target);
-    }
-
-    private int sum(List<Integer> list) {
-        int s = 0;
-        for (Integer integer : list) {
-            s += integer;
-        }
-
-        return s;
+        backtrack(curr, i + 1, candidates, target );
     }
 
     public static void main(String[] args) {
