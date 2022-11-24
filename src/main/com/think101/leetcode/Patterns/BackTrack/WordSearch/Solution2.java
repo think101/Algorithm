@@ -1,6 +1,7 @@
 package main.com.think101.leetcode.Patterns.BackTrack.WordSearch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Solution2 {
@@ -16,16 +17,16 @@ public class Solution2 {
         return false;
     }
 
-    private boolean dfs(char[][] board, String word, int ind, int i, int j, List<int[]> visited) {
+    private boolean dfs(char[][] board, String word, int ind, int i, int j, List<List<Integer>> visited) {
         if(ind == word.length()) return true;
         if(i < 0 || j < 0 || i >= board.length || j >= board[0].length) return false;
         if(board[i][j] != word.charAt(ind)) return false;
 
-        visited.add(new int[]{i, j});
-        if(!visited.contains(new int[]{i-1, j}) && dfs(board, word, ind+1, i - 1, j, visited)) return true;
-        if(!visited.contains(new int[]{i+1, j}) && dfs(board, word, ind+1, i + 1, j, visited)) return true;
-        if(!visited.contains(new int[]{i, j-1}) && dfs(board, word, ind+1, i, j - 1, visited)) return true;
-        if(!visited.contains(new int[]{i, j+1}) && dfs(board, word, ind+1, i, j + 1, visited)) return true;
+        visited.add(Arrays.asList(i, j));
+        if(!visited.contains(Arrays.asList(i - 1, j)) && dfs(board, word, ind+1, i - 1, j, visited)) return true;
+        if(!visited.contains(Arrays.asList(i + 1, j)) && dfs(board, word, ind+1, i + 1, j, visited)) return true;
+        if(!visited.contains(Arrays.asList(i, j - 1)) && dfs(board, word, ind+1, i, j - 1, visited)) return true;
+        if(!visited.contains(Arrays.asList(i, j + 1)) && dfs(board, word, ind+1, i, j + 1, visited)) return true;
         visited.remove(visited.size() - 1);
 
         return false;
