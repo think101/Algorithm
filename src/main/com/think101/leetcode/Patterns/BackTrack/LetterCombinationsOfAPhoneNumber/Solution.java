@@ -1,8 +1,8 @@
-package main.com.think101.leetcode.Patterns.BackTrack.LetterCasePermutation;
+package main.com.think101.leetcode.Patterns.BackTrack.LetterCombinationsOfAPhoneNumber;
 
 import java.util.*;
 
-public class Solution2 {
+public class Solution {
     private static final Map<Character, List<String>> numToChars = new HashMap<>();
     static {
         numToChars.put('2', Arrays.asList("a", "b", "c"));
@@ -38,7 +38,7 @@ public class Solution2 {
     }
 
     public static void main(String[] args) {
-        Solution2 s = new Solution2();
+        Solution s = new Solution();
         System.out.println(s.letterCombinations("23"));
     }
 }
