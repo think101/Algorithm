@@ -7,34 +7,29 @@ public class Solution {
             int l = i;
             int r = i;
 
-            while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
-                l--;
-                r++;
-            }
-
-            l = l + 1;
-            r = r - 1;
-
-            if(r - l + 1 > res.length()) {
-                res = s.substring(l, r+1);
-            }
+            res = getPalindromSubString(s, res, l, r);
 
             l = i;
             r = i + 1;
 
-            while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
-                l--;
-                r++;
-            }
-
-            l = l + 1;
-            r = r - 1;
-
-            if(r - l + 1 > res.length()) {
-                res = s.substring(l, r+1);
-            }
+            res = getPalindromSubString(s, res, l, r);
         }
 
+        return res;
+    }
+
+    private String getPalindromSubString(String s, String res, int l, int r) {
+        while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+
+        l = l + 1;
+        r = r - 1;
+
+        if(r - l + 1 > res.length()) {
+            res = s.substring(l, r+1);
+        }
         return res;
     }
 
