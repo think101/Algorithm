@@ -29,5 +29,7 @@ public class SolutionDP {
     public static void main(String[] args) {
         SolutionDP s = new SolutionDP();
         System.out.println(s.longestPalindrome("babad"));
+        System.out.println(s.longestPalindrome("cbbd"));
+        System.out.println(s.longestPalindrome("a"));
     }
 }
