@@ -1,19 +1,19 @@
 package main.com.think101.leetcode.Patterns.DP.LongestIncreasingSubsequence;
 
-import java.util.Stack;
-
 public class Solution {
     public int lengthOfLIS(int[] nums) {
-        Stack<Integer> s = new Stack<>();
+        int[] dp = new int[nums.length];
         int res = 0;
 
-        for (int num : nums) {
-            while (s.size() > 0 && s.peek() >= num) {
-                s.pop();
+        for(int i = 0; i < nums.length; i++) {
+            dp[i] = 1;
+            for(int j = 0; j < i; j++) {
+                if(nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[j] + 1, dp[i]);
+                }
             }
 
-            s.push(num);
-            res = Math.max(res, s.size());
+            res = Math.max(res, dp[i]);
         }
 
         return res;
