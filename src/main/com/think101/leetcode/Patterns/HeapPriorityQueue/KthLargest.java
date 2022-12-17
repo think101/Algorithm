@@ -1,23 +1,26 @@
 package main.com.think101.leetcode.Patterns.HeapPriorityQueue;
 
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class KthLargest {
-    TreeSet<Integer> tSet;
+    List<Integer> all;
     int kth;
 
     public KthLargest(int k, int[] nums) {
-        tSet = new TreeSet<>();
+        all = new ArrayList<>();
         kth = k;
 
         for (int num : nums) {
-            tSet.add(num);
+            all.add(num);
         }
     }
 
     public int add(int val) {
-        tSet.add(val);
-        return tSet.toArray(new Integer[0])[tSet.size() - kth];
+        all.add(val);
+        Collections.sort(all);
+        return all.get(all.size() - kth);
     }
 
     public static void main(String[] args) {
