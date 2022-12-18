@@ -1,4 +1,4 @@
-package main.com.think101.leetcode.Patterns.HeapPriorityQueue;
+package main.com.think101.leetcode.Patterns.HeapPriorityQueue.KthLargestElementInStream;
 
 import java.util.PriorityQueue;
 
