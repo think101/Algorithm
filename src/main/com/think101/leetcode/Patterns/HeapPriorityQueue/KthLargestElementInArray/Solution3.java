@@ -6,12 +6,12 @@ package main.com.think101.leetcode.Patterns.HeapPriorityQueue.KthLargestElementI
 public class Solution3 {
     private int[] minHeap;
     private int k;
+    private int size;
 
     public Solution3(int k, int[] nums) {
         this.minHeap = new int[k];
         this.k = k;
-
-        int size = 0;
+        this.size = 0;
 
         for(int i = 0; i < k && i < nums.length; i++) {
             minHeap[size++] = nums[i];
@@ -63,7 +63,11 @@ public class Solution3 {
     }
 
     public int add(int val) {
-        if(minHeap[0] < val) {
+        if(size < k) {
+            minHeap[size++] = val;
+            heapifyUp(minHeap, size - 1);
+        }
+        else if(minHeap[0] < val) {
             minHeap[0] = val;
             heapifyDown(minHeap, 0, k);
         }
