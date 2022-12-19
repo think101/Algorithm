@@ -13,16 +13,8 @@ public class Solution3 {
         this.k = k;
         this.size = 0;
 
-        for(int i = 0; i < k && i < nums.length; i++) {
-            minHeap[size++] = nums[i];
-            heapifyUp(minHeap, size - 1);
-        }
-
-        for(int i = k; i < nums.length; i++) {
-            if(nums[i] > minHeap[0]) {
-                minHeap[0] = nums[i];
-                heapifyDown(minHeap, 0, size);
-            }
+        for(int n : nums) {
+            add(n);
         }
     }
 
