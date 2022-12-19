@@ -6,7 +6,7 @@ package main.com.think101.leetcode.Patterns.HeapPriorityQueue.KthLargestElementI
 public class Solution3 {
     private int[] minHeap;
     private int k;
-    private int size;
+    private int size;    // we need to keep track of the size of the heap, otherwise the add method will not work
 
     public Solution3(int k, int[] nums) {
         this.minHeap = new int[k];
