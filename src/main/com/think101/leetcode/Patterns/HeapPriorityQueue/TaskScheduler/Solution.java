@@ -25,13 +25,7 @@ public class Solution {
         while(taskQ.size() > 0 || pq.size() > 0) {
             if(taskQ.size() > 0 && taskQ.peek()[1] <= t) {
                 int[] task = taskQ.poll();
-
-                if(task[0] > 1) {
-                    task[0] = task[0] - 1;
-                    task[1] = t + 1 + n;
-                    taskQ.add(task);
-                }
-
+                pq.add(task[0]);
             }
 
             if(pq.size() > 0) {
