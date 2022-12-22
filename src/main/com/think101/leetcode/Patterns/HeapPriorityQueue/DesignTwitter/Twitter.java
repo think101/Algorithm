@@ -32,18 +32,19 @@ public class Twitter {
 
         if(following.get(userId) != null) {
             for(int followee : following.get(userId)) {
-                for(int[] tweet : tweets.get(followee)) {
-                    if(newsFeed.size() < 10) {
-                        newsFeed.add(tweet);
-                    }
-                    else if(tweet[1] > newsFeed.peek()[1]) {
-                        newsFeed.poll();
-                        newsFeed.add(tweet);
+                if(tweets.get(followee) != null) {
+                    for(int[] tweet : tweets.get(followee)) {
+                        if(newsFeed.size() < 10) {
+                            newsFeed.add(tweet);
+                        }
+                        else if(tweet[1] > newsFeed.peek()[1]) {
+                            newsFeed.poll();
+                            newsFeed.add(tweet);
+                        }
                     }
                 }
             }
         }
-
 
         if(tweets.get(userId) != null) {
             for(int[] tweet : tweets.get(userId)) {
@@ -59,9 +60,10 @@ public class Twitter {
 
 
         List<Integer> res = new ArrayList<>();
-        for(int i = 0; i < newsFeed.size(); i++) {
+        int size = newsFeed.size();
+        for(int i = 0; i < size; i++) {
             int[] t = newsFeed.poll();
-            res.add(t[0]);
+            res.add(0, t[0]);
         }
 
         System.out.println("news feed: " + res);
@@ -84,7 +86,8 @@ public class Twitter {
         following.get(followerId).remove(followeeId);
     }
 
-    public static void main() {
+    public static void main(String[] args) {
+        System.out.println("Design Twitter");
         Twitter twitter = new Twitter();
         twitter.postTweet(1, 5);
         twitter.getNewsFeed(1);
