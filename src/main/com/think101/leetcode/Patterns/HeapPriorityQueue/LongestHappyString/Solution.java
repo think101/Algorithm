@@ -26,16 +26,23 @@ public class Solution {
                 int[] elem = pq.poll();
                 char ch = (char)(elem[0] + 'a');
                 if(sb.length() > 1 && sb.charAt(sb.length() - 1) == ch && sb.charAt(sb.length() - 2) == ch) {
-                    if(elem[1] - 1 > 0) {
-                        q.add(new int[]{elem[0], elem[1] - 1, t + 2});
+                    if(elem[1] > 0) {
+                        q.add(new int[]{elem[0], elem[1], t + 2});
                     }
                 }
                 else {
-                    sb.append(ch);
-                    q.add(new int[]{elem[0], elem[1] - 1,  t + 1});
+                    if(elem[1] > 0) {
+                        sb.append(ch);
+                    }
+
+
+                    if(elem[1] - 1 > 0) {
+                        pq.add(new int[]{elem[0], elem[1] - 1,  t + 1});
+                    }
                 }
 
                 t++;
+                if(t > a + b + c) break;
             }
         }
 
@@ -45,6 +52,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.longestDiverseString(1, 1, 7));
+        System.out.println(s.longestDiverseString(1, 8, 12));
     }
 }
