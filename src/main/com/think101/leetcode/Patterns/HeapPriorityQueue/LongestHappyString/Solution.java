@@ -40,10 +40,10 @@ public class Solution {
                         pq.add(new int[]{elem[0], elem[1] - 1,  t + 1});
                     }
                 }
-
-                t++;
-                if(t > a + b + c) break;
             }
+
+            if(t > a + b + c) break;
+            t++;
         }
 
         return sb.toString();
@@ -52,6 +52,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.longestDiverseString(1, 8, 12));
+        System.out.println(s.longestDiverseString(7, 1, 0));
     }
 }
