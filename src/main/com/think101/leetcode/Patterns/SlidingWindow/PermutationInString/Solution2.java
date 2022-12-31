@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Solution2 {
     public boolean checkInclusion(String s1, String s2) {
+        if(s2.length() < s1.length()) return false;
+
         Map<Character, Integer> s1Cnt = new HashMap<>();
         Map<Character, Integer> s2Cnt = new HashMap<>();
         int matches = 0;
@@ -26,7 +28,6 @@ public class Solution2 {
 
         for(int i = 0; i < 26; i++) {
             if(s1Cnt.get((char)('a' + i)) == s2Cnt.get((char)('a' + i))) matches++;
-            else matches--;
         }
 
         int i = s1.length();
@@ -38,10 +39,10 @@ public class Solution2 {
             s2Cnt.put(in, s2Cnt.get(in) + 1);
 
             if(s2Cnt.get(out) == s1Cnt.get(out)) matches++;
-            else matches--;
+            else if(s2Cnt.get(out) == s1Cnt.get(out) - 1) matches--;
 
             if(s2Cnt.get(in) == s1Cnt.get(in)) matches++;
-            else matches--;
+            else if(s2Cnt.get(in) == s1Cnt.get(in) + 1) matches--;
 
             i++;
         }
@@ -51,6 +52,6 @@ public class Solution2 {
 
     public static void main(String[] args) {
         Solution2 solution = new Solution2();
-        System.out.println(solution.checkInclusion("ab", "eidbaooo"));
+        System.out.println(solution.checkInclusion("abc", "bbbca"));
     }
 }
