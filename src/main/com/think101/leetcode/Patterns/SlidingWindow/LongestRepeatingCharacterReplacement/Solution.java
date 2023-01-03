@@ -12,7 +12,7 @@ public class Solution {
         charCnt.put(s.charAt(0), 1);
 
         while(l < s.length() && r < s.length()) {
-            if(r - l + 1 < res) break;
+            //if(r - l + 1 < res) break;
 
             int maxCnt = getMaxValueEntry(charCnt).getValue();
             int curr = r - l + 1;
@@ -58,7 +58,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.characterReplacement("ABAA", 0));
+        System.out.println(solution.characterReplacement("KRSCDCSONAJNHLBMDQGIFCPEKPOHQIHLTDIQGEKLRLCQNBOHNDQGHJPNDQPERNFSSSRDEQLFPCCCARFMDLHADJADAGNNSBNCJQOF", 4));
         //System.out.println(solution.characterReplacement("AABABBA", 1));
     }
 }
