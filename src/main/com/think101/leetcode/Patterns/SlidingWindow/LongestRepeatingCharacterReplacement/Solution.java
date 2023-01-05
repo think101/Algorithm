@@ -1,48 +1,28 @@
 package main.com.think101.leetcode.Patterns.SlidingWindow.LongestRepeatingCharacterReplacement;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 public class Solution {
     public int characterReplacement(String s, int k) {
-        TreeMap<Character, Integer> charCnt = new TreeMap<>();
+        int[] charCnt = new int[26];
         int l = 0, r = 0;
         int res = 0;
-
-        charCnt.put(s.charAt(0), 1);
+        charCnt[s.charAt(0) - 'A']++;
 
         while(l < s.length() && r < s.length()) {
-            // this is not a short circuit
-            // if(r - l + 1 < res) break;
-
-            /*
-             * Basically there is no easy way to sort a treemap by value, we need to iterate all the keys
-             * and find the max
-             */
-            int maxCnt = getMaxValueEntry(charCnt).getValue();
+            int maxInd = getMaxValueEntry(charCnt);
             int curr = r - l + 1;
 
-            if(curr - maxCnt <= k) {
+            if(curr - charCnt[maxInd] <= k) {
                 res = Math.max(res, curr);
                 r++;
 
                 if(r < s.length()) {
-                    if(!charCnt.containsKey(s.charAt(r))) {
-                        charCnt.put(s.charAt(r), 0);
-                    }
-
-                    charCnt.put(s.charAt(r), charCnt.get(s.charAt(r)) + 1);
+                    charCnt[s.charAt(r) - 'A']++;
                 }
             }
             else {
                 l++;
 
-                if(charCnt.get(s.charAt(l-1)).equals(1)) {
-                    charCnt.remove(s.charAt(l-1));
-                }
-                else {
-                    charCnt.put(s.charAt(l-1), charCnt.get(s.charAt(l-1)) - 1);
-                }
+                charCnt[s.charAt(l-1) - 'A']--;
             }
         }
 
@@ -50,15 +30,15 @@ public class Solution {
 
     }
 
-    private Map.Entry<Character, Integer> getMaxValueEntry(TreeMap<Character, Integer> charCnt) {
-        Map.Entry<Character, Integer> maxEntry = null;
-        for(Map.Entry<Character, Integer> entry : charCnt.entrySet()) {
-            if(maxEntry == null || entry.getValue() > maxEntry.getValue()) {
-                maxEntry = entry;
+    private int getMaxValueEntry(int[] charCnt) {
+        int maxIndex = 0;
+        for(int i = 0; i < charCnt.length; i++) {
+            if(charCnt[i] > charCnt[maxIndex]) {
+                maxIndex = i;
             }
         }
 
-        return maxEntry;
+        return maxIndex;
     }
 
     public static void main(String[] args) {
