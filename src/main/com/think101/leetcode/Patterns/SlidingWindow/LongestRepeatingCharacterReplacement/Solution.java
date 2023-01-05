@@ -12,8 +12,13 @@ public class Solution {
         charCnt.put(s.charAt(0), 1);
 
         while(l < s.length() && r < s.length()) {
-            //if(r - l + 1 < res) break;
+            // this is not a short circuit
+            // if(r - l + 1 < res) break;
 
+            /*
+             * Basically there is no easy way to sort a treemap by value, we need to iterate all the keys
+             * and find the max
+             */
             int maxCnt = getMaxValueEntry(charCnt).getValue();
             int curr = r - l + 1;
 
