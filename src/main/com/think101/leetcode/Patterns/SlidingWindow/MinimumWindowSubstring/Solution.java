@@ -8,7 +8,7 @@ public class Solution {
     public String minWindow(String s, String t) {
         Map<Character, Integer> tCnt = new HashMap<>();
         Map<Character, Integer> sCnt = new HashMap<>();
-        int need = 0, have = 0, start = 0, end = 0;
+        int need, have = 0, start = 0, end = 0;
         String res = "";
 
         for(int i = 0; i < t.length(); i++) {
@@ -22,7 +22,10 @@ public class Solution {
 
         while(end < s.length()) {
             char c = s.charAt(end);
-            if(!tCnt.containsKey(c)) continue;
+            if(!tCnt.containsKey(c)) {
+                end++;
+                continue;
+            }
 
             if(!sCnt.containsKey(c)) sCnt.put(c, 0);
             sCnt.put(c,sCnt.get(c) + 1);
@@ -35,11 +38,18 @@ public class Solution {
                 char remove = s.charAt(start - 1);
                 if(!sCnt.containsKey(remove)) continue;
 
-                sCnt.put(c, tCnt.get(c) - 1);
+                sCnt.put(remove, sCnt.get(remove) - 1);
                 if(sCnt.get(remove) < tCnt.get(remove)) have--;
             }
+
+            end++;
         }
 
         return res;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        System.out.println(solution.minWindow("ADOBECODEBANC", "ABC"));
     }
 }
