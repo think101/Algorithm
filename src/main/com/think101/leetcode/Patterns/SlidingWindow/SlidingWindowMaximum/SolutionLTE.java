@@ -14,10 +14,10 @@ public class SolutionLTE {
 
         int start = 0, end = k-1;
         while(end < nums.length) {
-            res[start] = pq.peek();
-            pq.remove(nums[start++]);
+            res[start] = pq.peek();                   // O(1)
+            pq.remove(nums[start++]);                 // O(k)
             end++;
-            if(end < nums.length) pq.add(nums[end]);
+            if(end < nums.length) pq.add(nums[end]);  // O(logk)
         }
         return res;
     }
