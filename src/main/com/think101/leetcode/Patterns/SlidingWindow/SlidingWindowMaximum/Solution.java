@@ -9,25 +9,25 @@ public class Solution {
         Deque<Integer> dq = new LinkedList<>();
 
         for(int i = 0; i < k; i++) {
-            if(dq.size() == 0) dq.addLast(nums[i]);
+            if(dq.size() == 0) dq.addLast(i);
             else {
-                while(dq.size() > 0 && nums[i] > dq.peekLast()) {
+                while(dq.size() > 0 && nums[i] > nums[dq.peekLast()]) {
                     dq.removeLast();
                 }
 
-                dq.addLast(nums[i]);
+                dq.addLast(i);
             }
         }
-        res[0] = dq.peekFirst();
+        res[0] = nums[dq.peekFirst()];
 
         for(int i = k; i < nums.length; i++) {
-            if(dq.size() == k) dq.removeFirst();
-            while(dq.size() > 0 && nums[i] > dq.peekLast()) {
+            if(dq.peekFirst() == i - k) dq.removeFirst();
+            while(dq.size() > 0 && nums[i] > nums[dq.peekLast()]) {
                 dq.removeLast();
             }
 
-            dq.addLast(nums[i]);
-            res[i - k + 1] = dq.peekFirst();
+            dq.addLast(i);
+            res[i - k + 1] = nums[dq.peekFirst()];
         }
 
         return res;
