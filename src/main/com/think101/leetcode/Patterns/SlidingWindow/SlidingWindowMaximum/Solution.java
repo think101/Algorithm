@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int[] res = new int[nums.length - k + 1];
-        Deque<Integer> dq = new LinkedList<>();
+        Deque<Integer> dq = new LinkedList<>();    // the idea of keeping the index instead of the value is brilliant
 
         for(int i = 0; i < k; i++) {
             if(dq.size() == 0) dq.addLast(i);
