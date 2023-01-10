@@ -15,7 +15,7 @@ public class SolutionLTE {
         int start = 0, end = k-1;
         while(end < nums.length) {
             res[start] = pq.peek();                   // O(1)
-            pq.remove(nums[start++]);                 // O(k)
+            pq.remove(nums[start++]);                 // O(k)  finding it takes O(k), remove it takes O(logk)
             end++;
             if(end < nums.length) pq.add(nums[end]);  // O(logk)
         }
