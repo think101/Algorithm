@@ -8,26 +8,14 @@ public class Solution {
         int[] res = new int[nums.length - k + 1];
         Deque<Integer> dq = new LinkedList<>();    // the idea of keeping the index instead of the value is brilliant
 
-        for(int i = 0; i < k; i++) {
-            if(dq.size() == 0) dq.addLast(i);
-            else {
-                while(dq.size() > 0 && nums[i] > nums[dq.peekLast()]) {
-                    dq.removeLast();
-                }
-
-                dq.addLast(i);
-            }
-        }
-        res[0] = nums[dq.peekFirst()];
-
-        for(int i = k; i < nums.length; i++) {
-            if(dq.peekFirst() == i - k) dq.removeFirst();
+        for(int i = 0; i < nums.length; i++) {
+            if(dq.size() > 0 && dq.peekFirst() == i - k) dq.removeFirst();
             while(dq.size() > 0 && nums[i] > nums[dq.peekLast()]) {
                 dq.removeLast();
             }
 
             dq.addLast(i);
-            res[i - k + 1] = nums[dq.peekFirst()];
+            if(i - k + 1 >= 0) res[i - k + 1] = nums[dq.peekFirst()];
         }
 
         return res;
