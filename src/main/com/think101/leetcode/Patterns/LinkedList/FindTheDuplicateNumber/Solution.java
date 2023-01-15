@@ -2,19 +2,17 @@ package main.com.think101.leetcode.Patterns.LinkedList.FindTheDuplicateNumber;
 
 public class Solution {
     public int findDuplicate(int[] nums) {
-        int fast = 0, slow = 0;
+        int fast = nums[0], slow = nums[0];
 
-        while(true) {
+        do {
             slow = nums[slow];
             fast = nums[nums[fast]];
-            if(slow == fast) break;
-        }
+        } while (slow != fast);
 
-        int slow2 = 0;
-        while(true) {
+        int slow2 = nums[0];
+        while(slow != slow2) {
             slow = nums[slow];
             slow2 = nums[slow2];
-            if(slow == slow2) break;
         }
 
         return slow;
