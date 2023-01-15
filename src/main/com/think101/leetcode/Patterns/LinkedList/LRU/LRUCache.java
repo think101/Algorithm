@@ -10,25 +10,25 @@ public class LRUCache {
         private Node prev;
         private Node next;
 
-        public Node(int key, int value, Node prev, Node next) {
+        public Node(int key, int value) {
             this.key = key;
             this.value = value;
-            this.prev = prev;
-            this.next = next;
         }
     }
 
     private Node left;
     private Node right;
     private int capacity;
+    // map value is Node type is the key to resolve this problem
+    // thread-safe use ConcurrentHashMap
     Map<Integer, Node> cache;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.cache = new HashMap<>();
 
-        this.left = new Node(0, 0, null, null);
-        this.right = new Node(0, 0, null, null);
+        this.left = new Node(0, 0);
+        this.right = new Node(0, 0);
 
         left.next = right;
         right.prev = left;
@@ -51,7 +51,7 @@ public class LRUCache {
             return;
         }
 
-        Node node = new Node(key, value, null, null);
+        Node node = new Node(key, value);
         cache.put(key, node);
         add(key);
 
@@ -61,6 +61,7 @@ public class LRUCache {
             cache.remove(last.key);
         }
     }
+
 
     private void remove(int key) {
         Node node = cache.get(key);
