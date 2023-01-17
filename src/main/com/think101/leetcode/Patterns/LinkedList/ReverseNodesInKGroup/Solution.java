@@ -21,7 +21,7 @@ public class Solution {
 
                 break;
             }
-            ListNode nextCurr = curr == null ? null : curr.next;
+            ListNode nextCurr = curr;
 
             // found a k group, reverse it
             for(int i = k - 1; i > 0; i--) {
@@ -29,6 +29,7 @@ public class Solution {
             }
             currEnd.next = kGroup[k - 1];
             currEnd = kGroup[0];
+            currEnd.next = nextCurr;
             curr = nextCurr;
         }
 
@@ -37,7 +38,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+        ListNode head = new ListNode(1, new ListNode(2));
         ListNode res = s.reverseKGroup(head, 2);
         while(res != null) {
             System.out.println(res.val);
