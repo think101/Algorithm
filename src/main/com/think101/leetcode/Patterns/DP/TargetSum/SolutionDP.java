@@ -25,9 +25,7 @@ public class SolutionDP {
         t += bt(nums, i + 1, target + nums[i]);
         t += bt(nums, i + 1, target - nums[i]);
 
-        if(t > 0) {
-            dp.put(Arrays.asList(i, target), t);
-        }
+        dp.put(Arrays.asList(i, target), t);
 
         return t;
     }
