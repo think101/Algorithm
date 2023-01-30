@@ -6,7 +6,10 @@ public class Solution {
     }
 
     private boolean helper(String s1, String s2, String s3, int i1, int i2) {
-        if(i1 >= s1.length() || i2 >= s2.length()) return false;
+        if(i1 >= s1.length() || i2 >= s2.length()) {
+            return (i2 >= s2.length() && s1.substring(i1).equals(s3.substring(i1 + i2))) ||
+                    (i1 >= s1.length() && s2.substring(i2).equals(s3.substring(i1 + i2)));
+        }
 
         char t = s3.charAt(i1 + i2);
         if(s1.charAt(i1) != t && s2.charAt(i2) != t) return false;
@@ -19,6 +22,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.isInterleave("aabcc", "dbbca", "aadbbcbcac"));
+        System.out.println(s.isInterleave("a", "b", "a"));
     }
 }
