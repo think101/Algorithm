@@ -1,12 +1,14 @@
 package main.com.think101.leetcode.Patterns.BitManipulation.NumberOf1Bits;
 
+// Difference between >> and >>>: >> is signed right shift, >>> is unsigned right shift
+
 public class Solution {
     // you need to treat n as an unsigned value
     public int hammingWeight(int n) {
         int res = n & 1;
 
         while (n != 0) {
-            n = n >> 1;
+            n = n >>> 1;
             res += n & 1;
         }
 
