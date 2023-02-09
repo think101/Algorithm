@@ -2,7 +2,7 @@ package main.com.think101.leetcode.Patterns.BitManipulation.SumOfTwoIntegers;
 
 public class Solution {
     public int getSum(int a, int b) {
-        return b == 0 ? a : getSum(a ^ b, (a & b) << 1);
+        return b == 0 ? a : getSum(a ^ b, (a & b) << 1); // the parentheses around a & b are important
     }
 
     public static void main(String[] args) {
