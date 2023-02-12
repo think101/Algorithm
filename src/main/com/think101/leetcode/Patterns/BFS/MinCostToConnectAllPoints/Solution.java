@@ -1,12 +1,9 @@
 package main.com.think101.leetcode.Patterns.BFS.MinCostToConnectAllPoints;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Solution {
-    private List<Integer> visited = new ArrayList<>();
+    private Set<Integer> visited = new HashSet<>();
     private PriorityQueue<int[]> edgeByCost = new PriorityQueue<>(10, Comparator.comparingInt(a -> a[0]));
     private int cost = 0;
 
