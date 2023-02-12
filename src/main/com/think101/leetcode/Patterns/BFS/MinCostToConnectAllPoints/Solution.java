@@ -15,6 +15,7 @@ public class Solution {
 
         while(visited.size() < points.length) {
             int[] t = edgeByCost.poll();
+            if(visited.contains(t[1])) continue; // already visited
 
             visited.add(t[1]);
             cost += t[0];
