@@ -34,3 +34,9 @@ public class Solution {
         System.out.println(s.minCostConnectPoints(points));
     }
 }
+
+/*
+    * This is a implementation of Prim's algorithm
+    * it's not hard to think of using a min heap to store the edges, though throughly think of the whole
+    * prim's algorithm is not easy
+ */
