@@ -37,10 +37,19 @@ public class Solution {
         }
 
         visited.add(n);
-        for(int neighbor : neighbors.get(n)) {
-            if(!visited.contains(neighbor)) {
-                bfs(neighbor, dst, k, visited, cost + c);
+        if(neighbors.containsKey(n)) {
+            for(int neighbor : neighbors.get(n)) {
+                if(!visited.contains(neighbor)) {
+                    bfs(neighbor, dst, k, visited, cost + c);
+                }
             }
         }
+        visited.remove(visited.size() - 1);
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        int[][] flights = new int[][]{{0,1,100},{1,2,100},{0,2,500}};
+        System.out.println(s.findCheapestPrice(3, flights, 0, 2, 1));
     }
 }
