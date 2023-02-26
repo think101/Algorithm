@@ -17,34 +17,35 @@ public class Solution {
             edgeCost.put(Arrays.asList(f[0], f[1]), f[2]);
         }
 
-        bfs(src, dst, k, new ArrayList<>(), 0);
+        int stop = 0;
+        Queue<int[]> queue = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+        queue.add(new int[]{src, 0});
+        visited.add(src);
 
-        return res;
-    }
+        while(stop <= k && queue.size() > 0) {
+            stop++;
 
-    private void bfs(int n, int dst, int k, List<Integer> visited, int cost) {
-        int c = visited.size() > 0 ? edgeCost.get(Arrays.asList(visited.get(visited.size() - 1), n)) : 0;
+            for(int i = 0; i < queue.size(); i++) {
+                int[] node = queue.poll();
 
-        if(n == dst && visited.size() <= 1 + k) {
-            if(res == -1 || res > (cost + c)) {
-                res = cost + c;
-            }
+                if(neighbors.containsKey(node[0])) {
+                    for(int neigh : neighbors.get(node[0])) {
+                        if(visited.contains(neigh)) continue;
+                        int cost = node[1] + edgeCost.get(Arrays.asList(node[0], neigh));
 
-            return;
-        }
-        else if(visited.size() > (1 + k)) {
-            return;
-        }
-
-        visited.add(n);
-        if(neighbors.containsKey(n)) {
-            for(int neighbor : neighbors.get(n)) {
-                if(!visited.contains(neighbor)) {
-                    bfs(neighbor, dst, k, visited, cost + c);
+                        if(neigh == dst) {
+                            if(res == -1 || res > cost) res = cost;
+                        }
+                        else {
+                            queue.add(new int[]{neigh, cost});
+                        }
+                    }
                 }
             }
         }
-        visited.remove(visited.size() - 1);
+
+        return res;
     }
 
     public static void main(String[] args) {
