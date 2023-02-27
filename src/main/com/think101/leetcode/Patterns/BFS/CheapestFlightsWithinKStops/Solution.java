@@ -4,17 +4,15 @@ import java.util.*;
 
 public class Solution {
     int res = -1;
-    Map<List<Integer>, Integer> edgeCost = new HashMap<>();
-    Map<Integer, List<Integer>> neighbors = new HashMap<>();
+    Map<Integer, PriorityQueue<int[]>> neighbors = new HashMap<>();
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         for(int[] f : flights) {
             if(!neighbors.containsKey(f[0])) {
-                neighbors.put(f[0], new ArrayList<>());
+                neighbors.put(f[0], new PriorityQueue<>(Comparator.comparingInt(a -> a[1])));
             }
 
-            neighbors.get(f[0]).add(f[1]);
-            edgeCost.put(Arrays.asList(f[0], f[1]), f[2]);
+            neighbors.get(f[0]).add(new int[]{f[1], f[2]});
         }
 
         int stop = 0;
@@ -30,15 +28,15 @@ public class Solution {
                 int[] node = queue.poll();
 
                 if(neighbors.containsKey(node[0])) {
-                    for(int neigh : neighbors.get(node[0])) {
-                        if(visited.contains(neigh)) continue;
-                        int cost = node[1] + edgeCost.get(Arrays.asList(node[0], neigh));
+                    for(int[] neigh : neighbors.get(node[0])) {
+                        if(visited.contains(neigh[0])) continue;
+                        int cost = node[1] + neigh[1];
 
-                        if(neigh == dst) {
-                            if(res == -1 || res > cost) res = cost;
+                        if(neigh[0] == dst) {
+                            return cost;
                         }
                         else {
-                            queue.add(new int[]{neigh, cost});
+                            queue.add(new int[]{neigh[0], cost});
                         }
                     }
                 }
