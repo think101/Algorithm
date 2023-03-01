@@ -50,3 +50,12 @@ public class Solution {
         System.out.println(s.findCheapestPrice(3, flights, 0, 2, 1));
     }
 }
+
+/*
+ * In this solution, it's not required to have a visited array, use a visited array may generate wrong answer.
+ * For example if src has neighbor a and neighbor b, while b has neighbor a, if we use a visited array, we will not visit a again.
+ * But we should visit a again, because we can get a cheaper price.
+ *
+ * Though we need an array to store the cost from src to each node, and the array will be updated when we visit a node.
+ * Each node's cost may be updated multiple times, but the final cost will be the minimum cost.
+ */
