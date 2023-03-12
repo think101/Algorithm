@@ -18,6 +18,7 @@ public class Solution4 {
         visited.add(node.val);
 
         while(q.size() > 0) {
+            node = q.poll();
             Node nodeCopy;
             if(valueToNode.containsKey(node.val)) {
                 nodeCopy = valueToNode.get(node.val);
@@ -38,7 +39,7 @@ public class Solution4 {
                 }
 
                 if(!visited.contains(n.val)) {
-                    q.add(valueToNode.get(n.val));
+                    q.add(n);
                     visited.add(n.val);
                 }
             }
