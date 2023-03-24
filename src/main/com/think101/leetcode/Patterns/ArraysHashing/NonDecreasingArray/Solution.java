@@ -1,21 +1,38 @@
 package main.com.think101.leetcode.Patterns.ArraysHashing.NonDecreasingArray;
 
-import java.util.NavigableMap;
-import java.util.TreeMap;
+import java.util.Arrays;
 
 public class Solution {
     public boolean checkPossibility(int[] nums) {
-        TreeMap<Integer, Integer> checked = new TreeMap<>();
+
+        return forward(Arrays.copyOf(nums, nums.length)) || backward(nums);
+    }
+
+    private boolean forward(int[] nums) {
+        int count = 1;
 
         for(int i = 0; i < nums.length; i++) {
-            NavigableMap<Integer, Integer> tMap = checked.tailMap(nums[i], false);
-            if(tMap.size() > 1 || (tMap.size() == 1 && tMap.firstEntry().getValue() > 1)) return false;
-
-            if(!checked.containsKey(nums[i])) {
-                checked.put(nums[i], 0);
+            if(i - 1 >= 0 && nums[i - 1] > nums[i]) {
+                if(count == 0) return false;
+                nums[i] = nums[i - 1];
+                count--;
             }
+        }
 
-            checked.put(nums[i], checked.get(nums[i]) + 1);
+        return true;
+    }
+
+    private boolean backward(int[] nums) {
+        int count = 1;
+
+        for(int i = 0; i < nums.length; i++) {
+            if(i - 1 >= 0 && nums[i - 1] > nums[i]) {
+                if(count == 0) return false;
+                nums[i - 1] = nums[i];
+                count--;
+
+                if(i - 2 >= 0 && nums[i - 2] > nums[i - 1]) return false;
+            }
         }
 
         return true;
