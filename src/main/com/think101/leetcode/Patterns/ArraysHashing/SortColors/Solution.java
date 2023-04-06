@@ -4,7 +4,7 @@ public class Solution {
     public void sortColors(int[] nums) {
         int[] cnts = new int[3];
         for(int i : nums) {
-            cnts[nums[i]]++;
+            cnts[i]++;
         }
 
         for(int i = 0; i < nums.length; i++) {
