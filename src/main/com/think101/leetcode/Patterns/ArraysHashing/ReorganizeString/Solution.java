@@ -24,20 +24,49 @@ public class Solution {
         if(cntToChars.firstKey() - 1 > s.length() - cntToChars.firstKey()) return "";
 
         StringBuilder sb = new StringBuilder();
+        char curr = '1';
 
-        while(cntToChars.size() > 0) {
-            for(Map.Entry<Integer, List<Character>> entry : cntToChars.entrySet()) {
-                List<Character> chars = entry.getValue();
-                for(char c : chars) {
-                    sb.append(c);
+        while(sb.length() < s.length()) {
+            boolean appended = false;
+
+            Iterator<Integer> it = cntToChars.keySet().iterator();
+            Map<Integer, Character> insert = new HashMap<>();
+
+            while (it.hasNext()) {
+                int key = it.next();
+                List<Character> chars = cntToChars.get(key);
+                for(int i = 0; i < chars.size(); i++) {
+                    if(chars.get(i) != curr) {
+                        char c = chars.get(i);
+                        sb.append(c);
+                        curr = c;
+                        chars.remove(i);
+
+                        if(key > 1) {
+                            if(!cntToChars.containsKey(key - 1)) {
+                                insert.put(key - 1, c);
+                            }
+                            else {
+                                cntToChars.get(key - 1).add(c);
+                            }
+                        }
+
+                        appended = true;
+                        break;
+                    }
                 }
+
+                if(appended) break;
             }
 
-            for(int i = 1; i < cntToChars.firstKey(); i++){
-                cntToChars.put(i, cntToChars.get(i + 1));
+            for(Map.Entry<Integer, Character> entry : insert.entrySet()) {
+                if(!cntToChars.containsKey(entry.getKey())) {
+                    cntToChars.put(entry.getKey(), new ArrayList<>());
+                }
+                cntToChars.get(entry.getKey()).add(entry.getValue());
             }
 
-            cntToChars.remove(cntToChars.firstKey());
+            if(!appended) return "";
         }
 
         return sb.toString();
@@ -45,6 +74,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.reorganizeString("vvvlo"));
+        System.out.println(s.reorganizeString("kkkkzrkatkwpkkkktrq"));
     }
 }
