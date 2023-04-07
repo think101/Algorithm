@@ -12,6 +12,8 @@ public class Solution {
         }
 
         for(int i = 0; i < 26; i++) {
+            if(cnts[i] == 0) continue;
+
             if(!cntToChars.containsKey(cnts[i])){
                 cntToChars.put(cnts[i], new ArrayList<>());
             }
@@ -21,7 +23,7 @@ public class Solution {
 
         if(cntToChars.firstKey() - 1 > s.length() - cntToChars.firstKey()) return "";
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         while(cntToChars.size() > 0) {
             for(Map.Entry<Integer, List<Character>> entry : cntToChars.entrySet()) {
@@ -34,6 +36,8 @@ public class Solution {
             for(int i = 1; i < cntToChars.firstKey(); i++){
                 cntToChars.put(i, cntToChars.get(i + 1));
             }
+
+            cntToChars.remove(cntToChars.firstKey());
         }
 
         return sb.toString();
@@ -41,6 +45,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.reorganizeString("aab"));
+        System.out.println(s.reorganizeString("vvvlo"));
     }
 }
