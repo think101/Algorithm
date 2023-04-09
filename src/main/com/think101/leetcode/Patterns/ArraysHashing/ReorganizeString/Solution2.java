@@ -1,8 +1,11 @@
 package main.com.think101.leetcode.Patterns.ArraysHashing.ReorganizeString;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/*
+ * The clear step is when to add the previous char to the queue.
+ * This makes this solution much more elegant than the previous one.
+ */
 public class Solution2 {
     public String reorganizeString(String s) {
         PriorityQueue<int[]> cntAndChar = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
@@ -17,6 +20,8 @@ public class Solution2 {
 
             cntAndChar.add(new int[]{cnts[i], i});
         }
+
+        if(cntAndChar.peek()[0] - 1 > s.length() - cntAndChar.peek()[0]) return "";
 
         int[] prev = null;
         StringBuilder sb = new StringBuilder();
