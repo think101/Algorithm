@@ -1,26 +1,20 @@
 package main.com.think101.leetcode.Patterns.ArraysHashing.IsomorphicStrings;
 
-import java.util.PriorityQueue;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Solution {
     public boolean isIsomorphic(String s, String t) {
-        int[] sCnts = new int[128];
-        int[] tCnts = new int[128];
-        PriorityQueue<Integer> sQueue = new PriorityQueue<>();
-        PriorityQueue<Integer> tQueue = new PriorityQueue<>();
+        Map<Character, Character> map = new HashMap<>();
 
         for(int i = 0; i < s.length(); i++) {
-            sCnts[s.charAt(i)]++;
-            tCnts[t.charAt(i)]++;
-        }
-
-        for(int i = 0; i < 128; i++) {
-            sQueue.add(sCnts[i]);
-            tQueue.add(tCnts[i]);
-        }
-
-        while(sQueue.size() > 0) {
-            if(!sQueue.poll().equals(tQueue.poll())) return false;
+            if(map.containsKey(s.charAt(i))) {
+                if(t.charAt(i) != map.get(s.charAt(i))) return false;
+            }
+            else {
+                if(map.containsValue(t.charAt(i))) return false;   // two chars pointing to same char
+                map.put(s.charAt(i), t.charAt(i));
+            }
         }
 
         return true;
