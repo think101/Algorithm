@@ -1,22 +1,24 @@
 package main.com.think101.leetcode.Patterns.ArraysHashing.LargestNumber;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Solution {
     public String largestNumber(int[] nums) {
-
-        List<Integer> sorted = Arrays.stream(nums).boxed().sorted((a, b) -> {
-            String s1 = a + b.toString();
-            String s2 = b + a.toString();
-            return s2.compareTo(s1);
-        }).collect(Collectors.toList());
-
-        String res = sorted.stream().map(Object::toString).reduce("", (a, b) -> a + b);
-        res = res.replaceFirst("^0+", "");
-
-        return res.isEmpty() ? "0" : res;
+        StringBuilder sb = new StringBuilder();
+        Integer[] arr = Arrays.stream(nums).boxed().toArray(Integer[]::new);
+        Arrays.sort(arr, (a, b) -> {
+            String s1 = String.valueOf(a);
+            String s2 = String.valueOf(b);
+            return (s2 + s1).compareTo(s1 + s2);
+        });
+        if (arr[0] == 0) {
+            return "0";
+        }
+        sb.setLength(0);
+        for (int num : arr) {
+            sb.append(num);
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
