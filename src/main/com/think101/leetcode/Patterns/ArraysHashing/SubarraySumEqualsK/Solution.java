@@ -13,7 +13,10 @@ public class Solution {
         for(int i = 0; i < nums.length; i++) {
             sum += nums[i];
 
-            if(sumIndex.containsKey(sum - k)) res += sumIndex.size();
+            if(sum == k ) res++;
+            if(sumIndex.containsKey(sum - k)) {
+                res += sumIndex.get(sum - k).size();
+            }
             if(!sumIndex.containsKey(sum)) sumIndex.put(sum, new ArrayList<>());
 
             sumIndex.get(sum).add(i);
