@@ -16,6 +16,7 @@ public class Solution {
                 if(!pToStr.get(c).equals(strs[i])) return false;
             }
             else {
+                if(pToStr.containsValue(strs[i])) return false;
                 pToStr.put(c, strs[i]);
             }
         }
