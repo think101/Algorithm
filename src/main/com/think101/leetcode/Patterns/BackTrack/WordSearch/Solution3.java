@@ -3,10 +3,9 @@ package main.com.think101.leetcode.Patterns.BackTrack.WordSearch;
 public class Solution3 {
 
     public boolean exist(char[][] board, String word) {
-        int[][] visited = new int[board.length][board[0].length];
-
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[0].length; j++) {
+                int[][] visited = new int[board.length][board[0].length];
                 if(helper(board, visited, word, 0, i, j)) return true;
             }
         }
@@ -25,6 +24,7 @@ public class Solution3 {
         if(helper(board, visited, word, ind + 1, i + 1, j)) return true;
         if(helper(board, visited, word, ind + 1, i, j - 1)) return true;
         if(helper(board, visited, word, ind + 1, i, j + 1)) return true;
+        visited[i][j] = 0;
 
         return false;
     }
@@ -32,6 +32,9 @@ public class Solution3 {
     public static void main(String[] args) {
         Solution3 s = new Solution3();
         char[][] board = {{'A','B','C','E'}, {'S','F','C','S'}, {'A','D','E','E'}};
-        System.out.println(s.exist(board, "ABCCED"));
+        System.out.println(s.exist(board, "ABCCE"));
+
+        board = new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'E', 'S'}, {'A', 'D', 'E', 'E'}};
+        System.out.println(s.exist(board, "ABCESEEEFS"));
     }
 }
