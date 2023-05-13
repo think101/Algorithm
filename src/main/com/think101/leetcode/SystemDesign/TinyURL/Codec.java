@@ -1,13 +1,13 @@
 package main.com.think101.leetcode.SystemDesign.TinyURL;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Codec {
     private static final AtomicLong id = new AtomicLong(10000);
-    private static final Map<String, String> longToShortUrl = new HashMap<>();
-    private static final Map<String, String> shortToLongUrl = new HashMap<>();
+    private static final Map<String, String> longToShortUrl = new ConcurrentHashMap<>();
+    private static final Map<String, String> shortToLongUrl = new ConcurrentHashMap<>();
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final String BASE_URL = "http://tinyurl.com/";
 
