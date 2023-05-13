@@ -2,32 +2,33 @@ package main.com.think101.leetcode.SystemDesign.TinyURL;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Codec {
-    long id = 0L;
-    Map<String, String> longToShortUrl = new HashMap<>();
-    Map<String, String> shortToLongUrl = new HashMap<>();
-    String charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final AtomicLong id = new AtomicLong(10000);
+    private static final Map<String, String> longToShortUrl = new HashMap<>();
+    private static final Map<String, String> shortToLongUrl = new HashMap<>();
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final String BASE_URL = "http://tinyurl.com/";
 
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
         if(longToShortUrl.containsKey(longUrl)) return longToShortUrl.get(longUrl);
 
-        id++;
-        long t = id;
+        long t = id.incrementAndGet();
         StringBuilder sb = new StringBuilder();
         while(t > 0) {
-            sb.append(charSet.charAt((int)(t % 62)));
+            sb.append(ALPHABET.charAt((int)(t % 62)));
             t = t / 62;
         }
 
         sb.reverse();
         String res = sb.toString();
 
-        longToShortUrl.put(longUrl, res);
-        shortToLongUrl.put(res, longUrl);
+        longToShortUrl.put(longUrl, BASE_URL + res);
+        shortToLongUrl.put(BASE_URL + res, longUrl);
 
-        return res;
+        return BASE_URL + res;
     }
 
     // Decodes a shortened URL to its original URL.
