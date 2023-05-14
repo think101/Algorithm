@@ -7,21 +7,19 @@ import java.util.Map;
 public class Solution {
     public int leastBricks(List<List<Integer>> wall) {
         Map<Integer, Integer> edgeCnt = new HashMap<>();
+        // edge cross most edges
+        int res = 0;
 
         for(List<Integer> row : wall) {
             int curr = 0;
             for(int i = 0; i < row.size() - 1; i++) {
                 curr = curr + row.get(i);
 
-                if(!edgeCnt.containsKey(curr)) edgeCnt.put(curr, 0);
+                edgeCnt.put(curr, edgeCnt.getOrDefault(curr, 0) + 1);
 
-                edgeCnt.put(curr, edgeCnt.get(curr) + 1);
+                res = Math.max(res, edgeCnt.get(curr));
             }
         }
-
-        // edge cross most edges
-        int res = 0;
-        for(int k : edgeCnt.keySet()) res = Math.max(res, edgeCnt.get(k));
 
         return wall.size() - res;
     }
