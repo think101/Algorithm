@@ -33,10 +33,12 @@ public class Solution {
         }
 
         for(int i = 1; i < s.length() - 1; i++) {
+            Set<Character> bpSet = beforePosCharSet.get(i);
+            Set<Character> apSet = afterPosCharSet.get(i);
             for(int j = 0; j < 26; j++) {
                 char c = (char)('a' + j);
-                if(beforePosCharSet.get(i).contains(c) && afterPosCharSet.get(i).contains(c)) {
-                    res.add(String.valueOf(c) + s.charAt(i) + c);
+                if(bpSet.contains(c) && apSet.contains(c)) {
+                    res.add(c + "" + s.charAt(i) + c);
                 }
             }
         }
