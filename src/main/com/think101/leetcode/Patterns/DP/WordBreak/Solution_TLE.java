@@ -4,16 +4,22 @@ import java.util.List;
 
 public class Solution_TLE {
     public boolean wordBreak(String s, List<String> wordDict) {
-        if(s.length() == 0) return true;
+        int len = s.length();
+        int[] canBreak = new int[len + 1];
+        canBreak[len] = 1;
 
-        for(String word : wordDict) {
-            if(s.startsWith(word)) {
-                boolean b = wordBreak(s.substring(word.length()), wordDict);
-                if(b) return true;
+        for(int i = len - 1; i >= 0; i--) {
+            String t = s.substring(i);
+
+            for(String word : wordDict) {
+                if(t.startsWith(word) && canBreak[i + word.length()] == 1){
+                    canBreak[i] = 1;
+                    break;
+                }
             }
         }
 
-        return false;
+        return canBreak[0] == 1;
     }
 
     public static void main(String[] args) {
