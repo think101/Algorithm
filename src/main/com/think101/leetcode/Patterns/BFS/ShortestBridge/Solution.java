@@ -51,7 +51,7 @@ public class Solution {
         }
 
         //visited = new int[n][n];
-        int k = 0;
+        int steps = 0;
         while(nodes.size() > 0) {
             int size = nodes.size();
 
@@ -59,29 +59,40 @@ public class Solution {
                 int[] node = nodes.poll();
                 int a = node[0], b = node[1];
 
-                visited[a][b] = 1;
                 if(a - 1 >= 0 && visited[a - 1][b] == 0) {
-                    if(grid[a - 1][b] == 1) return k;
-                    else nodes.add(new int[]{a - 1, b});
+                    if(grid[a - 1][b] == 1) return steps;
+                    else{
+                        nodes.add(new int[]{a - 1, b});
+                        visited[a - 1 ][b] = 1;
+                    }
                 }
                 if(a + 1 < n && visited[a + 1][b] == 0) {
-                    if(grid[a + 1][b] == 1) return k;
-                    else nodes.add(new int[]{a + 1, b});
+                    if(grid[a + 1][b] == 1) return steps;
+                    else{
+                        nodes.add(new int[]{a + 1, b});
+                        visited[a + 1 ][b] = 1;
+                    }
                 }
                 if(b - 1 >= 0 && visited[a][b - 1] == 0) {
-                    if(grid[a][b - 1] == 1) return k;
-                    else nodes.add(new int[]{a, b - 1});
+                    if(grid[a][b - 1] == 1) return steps;
+                    else{
+                        nodes.add(new int[]{a, b - 1});
+                        visited[a][b - 1] = 1;
+                    }
                 }
                 if(b + 1 < n && visited[a][b + 1] == 0) {
-                    if(grid[a][b + 1] == 1) return k;
-                    else nodes.add(new int[]{a, b + 1});
+                    if(grid[a][b + 1] == 1) return steps;
+                    else{
+                        nodes.add(new int[]{a, b + 1});
+                        visited[a][b + 1] = 1;
+                    }
                 }
             }
 
-            k++;
+            steps++;
         }
 
-        return k;
+        return steps;
     }
 
     public static void main(String[] args) {
