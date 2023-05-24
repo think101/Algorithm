@@ -43,3 +43,10 @@ public class Solution2 {
         System.out.println(s.add(4));
     }
 }
+
+/*
+ * This is not a correct solution. It is just a solution to show how to use PriorityQueue.
+ * The key issue is that it tries to use PriorityQueue to store all the elements, which makes it difficult
+ * to find the kth element.
+ * The correct way is to maintain a minHeap with size k.
+ */
