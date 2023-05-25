@@ -23,6 +23,7 @@ public class Solution {
                 currentSum = currentSum - nums1[t] + nums1[i];
             }
             else {
+                // this part is not correct, we will need to switch i with any element in the heap
                 miniHeap.poll();
                 miniHeap.add(i);
 
@@ -41,8 +42,8 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] nums1 = {1,3,3,2};
-        int[] nums2 = {2,1,3,4};
+        int[] nums1 = {22,5,25,15,28,1};
+        int[] nums2 = {22,30,25,25,9,18};
         System.out.println(s.maxScore(nums1, nums2, 3));
     }
 }
