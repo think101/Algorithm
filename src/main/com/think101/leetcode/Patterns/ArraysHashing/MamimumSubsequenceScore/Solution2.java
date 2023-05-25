@@ -15,26 +15,24 @@ public class Solution2 {
 
         Arrays.sort(sortedIndex, Comparator.comparingInt(index -> -nums2[(int) index]));
 
-        int sum = 0;
+        long sum = 0;
         for(int i = 0; i < k; i++) {
             int index = sortedIndex[i];
             sum += nums1[index];
             minHeap.add(index);
         }
 
-        int res = sum * nums2[sortedIndex[k - 1]];
+        long res = sum * nums2[sortedIndex[k - 1]];
 
         for(int i = k; i < nums2.length; i++) {
             int index = sortedIndex[i];
+            sum += nums1[index];
 
-            int num1MinIndex = minHeap.peek();
+            minHeap.add(index);
+            sum -= nums1[minHeap.poll()];
 
-            if(res < (sum - nums1[num1MinIndex] + nums1[index]) * nums2[index]) {
-                sum = sum - nums1[num1MinIndex] + nums1[index];
-                res = sum * nums2[index];
-                minHeap.poll();
-                minHeap.add(index);
-            }
+            res = Math.max(res, sum * nums2[index]);
+
         }
 
         return res;
