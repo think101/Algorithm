@@ -1,18 +1,15 @@
 package main.com.think101.leetcode.Patterns.DFS.StoneGameII;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Solution {
     public static class MemoKey {
-        private final int[] piles;
         private final int ind;
         private final int m;
         private final boolean isAlice;
 
-        public MemoKey(int[] piles, int ind, int m, boolean isAlice) {
-            this.piles = piles;
+        public MemoKey(int ind, int m, boolean isAlice) {
             this.ind = ind;
             this.m = m;
             this.isAlice = isAlice;
@@ -30,8 +27,7 @@ public class Solution {
 
             MemoKey other = (MemoKey) obj;
 
-            return Arrays.equals(piles, other.piles) &&
-                    ind == other.ind &&
+            return ind == other.ind &&
                     m == other.m &&
                     isAlice == other.isAlice;
         }
@@ -49,7 +45,7 @@ public class Solution {
             return 0;
         }
 
-        MemoKey key = new MemoKey(piles, ind, m, isAlice);
+        MemoKey key = new MemoKey(ind, m, isAlice);
         if(memo.containsKey(key)) {
             System.out.println("found in memo");
             return memo.get(key);
