@@ -1,14 +1,15 @@
 package main.com.think101.leetcode.Patterns.DFS.StoneGameII;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Solution {
-    class MemoKey {
-        private int[] piles;
-        private int ind;
-        private int m;
-        private boolean isAlice;
+    public static class MemoKey {
+        private final int[] piles;
+        private final int ind;
+        private final int m;
+        private final boolean isAlice;
 
         public MemoKey(int[] piles, int ind, int m, boolean isAlice) {
             this.piles = piles;
@@ -16,9 +17,27 @@ public class Solution {
             this.m = m;
             this.isAlice = isAlice;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+
+            MemoKey other = (MemoKey) obj;
+
+            return Arrays.equals(piles, other.piles) &&
+                    ind == other.ind &&
+                    m == other.m &&
+                    isAlice == other.isAlice;
+        }
     }
 
-    private Map<MemoKey, Integer> memo = new HashMap<>();
+    private final Map<MemoKey, Integer> memo = new HashMap<>();
 
 
     public int stoneGameII(int[] piles) {
@@ -57,7 +76,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] piles = {2, 7, 9};
+        int[] piles = {8270,7145,575,5156,5126,2905,8793,7817,5532,5726,7071,7730,5200,5369,5763,7148,8287,9449,7567,4850,1385,2135,1737,9511,8065,7063,8023,7729,7084,8407};
         System.out.println(s.stoneGameII(piles));
     }
 }
