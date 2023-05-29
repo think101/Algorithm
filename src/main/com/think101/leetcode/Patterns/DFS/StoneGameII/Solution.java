@@ -1,71 +1,43 @@
 package main.com.think101.leetcode.Patterns.DFS.StoneGameII;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Solution {
-    public static class MemoKey {
-        private final int ind;
-        private final int m;
-        private final boolean isAlice;
-
-        public MemoKey(int ind, int m, boolean isAlice) {
-            this.ind = ind;
-            this.m = m;
-            this.isAlice = isAlice;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-
-            MemoKey other = (MemoKey) obj;
-
-            return ind == other.ind &&
-                    m == other.m &&
-                    isAlice == other.isAlice;
-        }
-    }
-
-    private final Map<MemoKey, Integer> memo = new HashMap<>();
-
-
     public int stoneGameII(int[] piles) {
-        return dfs(piles, 0, 1, true);
+        int[][][] dp = new int[2][piles.length + 1][piles.length + 1];
+        for (int p = 0; p < 2; p++) {
+            for (int i = 0; i <= piles.length; i++) {
+                for (int m = 0; m <= piles.length; m++) {
+                    dp[p][i][m] = -1;
+                }
+            }
+        }
+        return dfs(dp, piles, 0, 1, 1);
     }
 
-    private int dfs(int[] piles, int ind, int m, boolean isAlice) {
+    private int dfs(int[][][] dp, int[] piles, int ind, int m, int isAlice
+    ) {
         if(ind >= piles.length) {
             return 0;
         }
 
-        MemoKey key = new MemoKey(ind, m, isAlice);
-        if(memo.containsKey(key)) {
-            System.out.println("found in memo");
-            return memo.get(key);
-        }
+        if(dp[isAlice][ind][m] != -1) return dp[isAlice][ind][m];
 
-        int res = isAlice ? 0 : Integer.MAX_VALUE;
+        int res = isAlice == 1 ? 0 : Integer.MAX_VALUE;
         int sum = 0;
         for(int j = 1; j <= m * 2; j++) {
-            if(isAlice) {
+            if(ind + j - 1 >= piles.length) break;
+
+            if(isAlice == 1) {
                 if(ind + j - 1 < piles.length) {
                     sum += piles[ind + j - 1];
                 }
             }
 
-            int r = dfs(piles, ind + j, Math.max(m, j), !isAlice);
-            if(isAlice) res = Math.max(res, r + sum);
+            int r = dfs(dp, piles, ind + j, Math.max(m, j), isAlice == 1 ? 0 : 1);
+            if(isAlice == 1) res = Math.max(res, r + sum);
             else res = Math.min(res, r);
         }
 
-        memo.put(key, res);
+        dp[isAlice][ind][m] = res;
 
         return res;
     }
