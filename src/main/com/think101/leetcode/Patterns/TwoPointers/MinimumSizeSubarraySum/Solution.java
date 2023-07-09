@@ -9,8 +9,10 @@ class Solution {
             if(sum >= target) res = Math.min(res, r - l + 1);
             if(r >= nums.length - 1) break;
 
-            while(sum <= target && r < nums.length - 1) sum += nums[++r];
-            if(sum >= target) res = Math.min(res, r - l + 1);
+            while((sum <= target || l == r) && r < nums.length - 1) {
+                sum += nums[++r];
+                if(sum >= target) res = Math.min(res, r - l + 1);
+            }
 
             while(sum >= target && l < r) {
                 sum -= nums[l++];
@@ -23,7 +25,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] nums = {1, 4, 4 };
-        System.out.println(s.minSubArrayLen(4, nums));
+        int[] nums = {10, 2, 3 };
+        System.out.println(s.minSubArrayLen(6, nums));
     }
 }
