@@ -11,14 +11,28 @@ class Solution {
     //int[] a a[0] is 0 mean node on its left branch, 1 means on its right branch
     Map<Integer, int[]> preNodes = new HashMap<>();
     List<Integer> nodes = new ArrayList<>();
+    int originK;
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        if(k == 0) {
+            nodes.add(target.val);
+            return nodes;
+        }
+
+        if(root.val == target.val) {
+            findChildrenInDistance(root.left, k - 1);
+            findChildrenInDistance(root.right, k - 1);
+            return nodes;
+        }
+
+        originK = k;
         findNode(root, target);
         findNodesInDistance(root, target, k);
 
         return nodes;
     }
 
+    // return int[0] 0 means left branch, 1 means right branch
     private int[] findNode(TreeNode root, TreeNode target) {
         if(root == null) return new int[]{-1, 0};
         if(root.val == target.val) return new int[]{1, 0};
@@ -26,15 +40,16 @@ class Solution {
         int[] res;
 
         int[] l = findNode(root.left, target);
-        if(l[0] == 1) {
+
+        if(l != null && l[0] != -1) {
             res = new int[]{0, l[1] + 1};
             preNodes.put(root.val, res);
             return res;
         }
 
         int[] r = findNode(root.right, target);
-        if(r[0] == 1) {
-            res = new int[]{0, l[1] + 1};
+        if(r != null && r[0] != -1) {
+            res = new int[]{1, r[1] + 1};
             preNodes.put(root.val, res);
             return res;
         }
@@ -43,10 +58,12 @@ class Solution {
     }
 
     private void findNodesInDistance(TreeNode root, TreeNode target, int k) {
+        if(root == null) return;
+
         if(k == 0) {
             if(root.val == target.val) {
-                findChildrenInDistance(root.left, k);
-                findChildrenInDistance(root.right, k);
+                findChildrenInDistance(root.left, originK - 1);
+                findChildrenInDistance(root.right, originK - 1);
             }
             else {
                 nodes.add(root.val);
@@ -63,24 +80,22 @@ class Solution {
             if(r[1] < k) {
                 findNodesInDistance(root.right, target, k - r[1] - 1);
             }
-            else if(r[1] == k) {
+            else if(r[1] == originK ) {
                 nodes.add(root.val);
             }
-            else {
-                findNodesInDistance(root.left, target, k - 1);
-            }
+
+            findNodesInDistance(root.left, target, r[1] - 1);
         }
         else {
             // right branch
             if(r[1] < k) {
                 findNodesInDistance(root.left, target, k - r[1] - 1);
             }
-            else if(r[1] == k) {
+            else if(r[1] == originK ) {
                 nodes.add(root.val);
             }
-            else {
-                findNodesInDistance(root.right, target, k - 1);
-            }
+
+            findNodesInDistance(root.right, target, r[1] - 1);
         }
     }
 
@@ -98,7 +113,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        TreeNode root = new TreeNode(3, new TreeNode(5, new TreeNode(6), new TreeNode(2, new TreeNode(7), new TreeNode(4))), new TreeNode(1, new TreeNode(0), new TreeNode(8)));
-        System.out.println(s.distanceK(root, new TreeNode(5), 2));
+        TreeNode root = new TreeNode(0, null, new TreeNode(1, null, new TreeNode(2, null, new TreeNode(3, new TreeNode(4), null))));
+        System.out.println(s.distanceK(root, new TreeNode(0), 2));
     }
 }
