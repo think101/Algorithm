@@ -10,7 +10,7 @@ class Solution {
     TreeMap<Integer, Integer> maxEarnAtPos = new TreeMap<>();
     int res = Integer.MIN_VALUE;
 
-    public long maxTaxiEarnings(int[][] rides) {
+    public long maxTaxiEarnings(int n, int[][] rides) {
         findStartToEnds(rides);
 
         Set<Integer> kSet = startToEnds.descendingKeySet();
@@ -59,6 +59,6 @@ class Solution {
     public static void main(String[] args) {
         Solution s = new Solution();
         int[][] rides = new int[][]{{1,6,1},{3,10,2},{10,12,3},{11,12,2},{12,15,2},{13,18,1}};
-        System.out.println(s.maxTaxiEarnings(rides));
+        System.out.println(s.maxTaxiEarnings(20, rides));
     }
 }
