@@ -5,7 +5,8 @@ import java.util.*;
 public class Solution {
     public int longestSubsequence(int[] arr, int difference) {
         Map<Integer, List<Integer>> numToPos = new HashMap<>();
-        numToPos.put(arr[0], Arrays.asList(0));
+        //numToPos.put(arr[0], Arrays.asList(0));
+        numToPos.put(arr[0], new ArrayList<>(Arrays.asList(0)));
 
         int[] dp = new int[arr.length];
         dp[0] = 1;
