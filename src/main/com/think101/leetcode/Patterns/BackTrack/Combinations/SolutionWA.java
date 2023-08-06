@@ -16,7 +16,7 @@ class Solution {
 
         for(int i = curr + 1; i <= n; i++) {            
             visited.add(i);
-            helper(n, curr, k - 1, visited);
+            helper(n, i, k - 1, visited);
             visited.remove(i);
         }
     }
