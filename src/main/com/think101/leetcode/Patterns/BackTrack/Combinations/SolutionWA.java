@@ -1,4 +1,11 @@
-class Solution {
+package main.com.think101.leetcode.Patterns.BackTrack.Combinations;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+class SolutionWA {
     List<List<Integer>> res = new ArrayList<>();
 
     public List<List<Integer>> combine(int n, int k) {
@@ -19,5 +26,10 @@ class Solution {
             helper(n, i, k - 1, visited);
             visited.remove(i);
         }
+    }
+
+    public static void main(String[] args) {
+        SolutionWA s = new SolutionWA();
+        System.out.println(s.combine(4, 2));
     }
 }
