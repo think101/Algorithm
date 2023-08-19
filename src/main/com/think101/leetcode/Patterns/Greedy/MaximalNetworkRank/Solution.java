@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Solution {
     public int maximalNetworkRank(int n, int[][] roads) {
+        if(roads.length <= 1) return roads.length;
+
         Map<Integer, Set<Integer>> neighbors = new HashMap<>();
         TreeMap<Integer, Set<Integer>> countToCity = new TreeMap<>(Collections.reverseOrder());
 
@@ -11,8 +13,12 @@ public class Solution {
             if(!neighbors.containsKey(r[0])) {
                 neighbors.put(r[0], new HashSet<>());
             }
+            if(!neighbors.containsKey(r[1])) {
+                neighbors.put(r[1], new HashSet<>());
+            }
 
             neighbors.get(r[0]).add(r[1]);
+            neighbors.get(r[1]).add(r[0]);
         }
 
         for(int c : neighbors.keySet()){
