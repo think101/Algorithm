@@ -8,7 +8,8 @@ public class Solution {
             if(s.charAt(j) == s.charAt(0)) {
                 int len = s.length() - j;
 
-                if(s.substring(0, len).equals(s.substring(j)) && repeated(s.substring(len, j), s.substring(j))) {
+                if(len <= j && s.substring(0, len).equals(s.substring(j))
+                        && repeated(s.substring(len, j), s.substring(j))) {
                     return true;
                 }
             }
