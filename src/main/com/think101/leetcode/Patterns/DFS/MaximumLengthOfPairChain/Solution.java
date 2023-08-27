@@ -1,11 +1,10 @@
 package main.com.think101.leetcode.Patterns.DFS.MaximumLengthOfPairChain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Solution {
+    Map<Integer, Integer> currentLongest = new HashMap<>();
+
     public int findLongestChain(int[][] pairs) {
         TreeMap<Integer, List<int[]>> numToPair = new TreeMap<>();
         int res = Integer.MIN_VALUE;
@@ -20,8 +19,9 @@ public class Solution {
 
         Set<Integer> keySet = numToPair.keySet();
         Integer[] keyArray = keySet.toArray(new Integer[keySet.size()]);
+        currentLongest.put(keyArray[keyArray.length - 1], 1);
 
-        for(int i = 0; i < keyArray.length; i++) {
+        for(int i = keyArray.length - 1; i >= 0; i--) {
             List<int[]> ps = numToPair.get(keyArray[i]);
 
             if(ps != null) {
@@ -41,12 +41,23 @@ public class Solution {
         int res = Integer.MIN_VALUE;
         for(int i = 0; i < keyArray.length; i++) {
             if(keyArray[i] > start) {
+                if(currentLongest.containsKey(keyArray[i])) {
+                    res = Math.max(res, currentLongest.get(keyArray[i]));
+                    continue;
+                }
+
                 List<int[]> ps = numToPair.get(keyArray[i]);
 
+                int t = Integer.MIN_VALUE;
                 for(int[] p : ps) {
-                    res = Math.max(res, 1 + helper(p[1], keyArray, numToPair));
+                    t = Math.max(t, 1 + helper(p[1], keyArray, numToPair));
                 }
+
+                currentLongest.put(keyArray[i], t);
+                res = Math.max(t, res);
             }
+
+
         }
 
         return res;
