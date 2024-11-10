@@ -12,6 +12,7 @@ public class Solution {
             for(int i = 0; i < s.length(); i++)
                 a[s.charAt(i) - 'a']++;
 
+            //String as = new String(a);  // wrong
             String as = Arrays.toString(a);
             if(!res.containsKey(as))
                 res.put(as, new ArrayList<>());
