@@ -39,5 +39,6 @@ class Solution {
         System.out.println(s.minRemoveToMakeValid("a)b(c)d"));
         System.out.println(s.minRemoveToMakeValid("))(("));
         System.out.println(s.minRemoveToMakeValid("(a(b(c)d)"));
+        System.out.println(s.minRemoveToMakeValid("a(b(c)d)"));
     }
 }
